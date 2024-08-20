@@ -1,4 +1,4 @@
-### practice-JS
+### practice-JS1
 
 # OVERVIEW
 
@@ -35,7 +35,7 @@
 - Dillinger requires [Node.js](https://nodejs.org/) v20.12.1 + to run.
 
 ```sh
-cd practice-JS
+cd practice-JS1
 npm install
 npm start
 Open on web: http://localhost:1234
