@@ -1,3 +1,3 @@
-import loginPage from './view/pages/login.js';
+import routerController from "./controller/RouteController";
 
-loginPage();
+new routerController();
