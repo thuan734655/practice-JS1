@@ -28,3 +28,5 @@ const homePage = () => {
     </section>
     `;
 };
+
+export default homePage ;
