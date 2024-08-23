@@ -7,7 +7,7 @@
 import Router from '../../router/Router.js';
 import homePage from '../../view/pages/home.js';
 
-class DataOfRoute {
+class dataOfRoute {
   constructor() {
     this.router = new Router();
     this.initRoute();
@@ -17,4 +17,4 @@ class DataOfRoute {
   }
 }
 
-export default DataOfRoute;
+export default dataOfRoute;

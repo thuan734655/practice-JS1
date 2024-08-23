@@ -1,25 +1,28 @@
 /*
- This file is used to decide page will change 
+ This file is used to decide page will change and control interact with DOM
  ex: 
   when router change to "/home"  -> add code html of homePage to the DOM.
 */
 import handleMovies from '../handleData/movies.handleData';
+import listALLMovies from '../getData/getDataMovies';
+import dataOfRoute from './dataOfRoute';
 
 class RouteController {
   constructor() {
-    this.routerView = new RouterView();
-    this.displayMovies();
+    this.dataOfRoute = new dataOfRoute();
     this.defaultPage();
+    this.displayMovies();
   }
 
   defaultPage() {
     // The default when loading the web is the login page
     history.pushState(null, '', '/home');
-    this.routerView.router.changeRoute();
+    this.dataOfRoute.router.changeRoute();
   }
  
   displayMovies() {
-    handleMovies([{}])
+    const listMovies = listALLMovies();
+    handleMovies(listMovies);
   }
 }
 
