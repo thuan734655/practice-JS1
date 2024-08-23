@@ -1,0 +1,31 @@
+@use '../Abstract' as *;
+
+.header {
+  @include set-size($w: 80%);
+  @include flex($align: center, $justify: space-between);
+  margin: 0 auto;
+  padding-top: pxToRem(16);
+
+  &--nav {
+    @include flex($align: center, $gap: pxToRem(48));
+
+    ul {
+      @include flex($gap: pxToRem(32), $align: center);
+
+      a {
+        text-decoration: none;
+        @include font(
+          $font-family: Poppins,
+          $font-size: pxToRem(16),
+          $font-weight: 600,
+          $font-style: false,
+          $line-height: 150%,
+          $color: $first-color
+        );
+      }
+    }
+    figure {
+      @include flex($direction: row-reverse, $gap: pxToRem(8));
+    }
+  }
+}
