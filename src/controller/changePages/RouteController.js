@@ -20,8 +20,8 @@ class RouteController {
     this.dataOfRoute.router.changeRoute();
   }
  
-  displayMovies() {
-    const listMovies = listALLMovies();
+  async displayMovies() {
+    const listMovies = await listALLMovies();
     handleMovies(listMovies);
   }
 }
