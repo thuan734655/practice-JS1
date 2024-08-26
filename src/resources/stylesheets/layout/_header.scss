@@ -1,12 +1,12 @@
 @use '../Abstract' as *;
 
-.header {
-  @include set-size($w: 80%);
+
+header {
   @include flex($align: center, $justify: space-between);
   margin: 0 auto;
   padding-top: pxToRem(16);
 
-  &--nav {
+  .header--nav {
     @include flex($align: center, $gap: pxToRem(48));
 
     ul {
@@ -15,10 +15,8 @@
       a {
         text-decoration: none;
         @include font(
-          $font-family: Poppins,
           $font-size: pxToRem(16),
           $font-weight: 600,
-          $font-style: false,
           $line-height: 150%,
           $color: $first-color
         );

@@ -1,4 +1,4 @@
-@use "../Abstract/_variables" as *;
+@use "../Abstract" as *;
 
 
 html {
@@ -13,4 +13,10 @@ html {
   body {
     font-family: $primary-font;
     font-weight: 400;
+}
+
+#root {
+  max-width: 1218px;
+  overflow: hidden;
+  margin: 0 auto;
 }
