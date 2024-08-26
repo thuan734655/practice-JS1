@@ -1,4 +1,5 @@
 import header from '../layout/header';
+import footer from '../layout/footer';
 
 const homePage = () => {
   return `
@@ -27,6 +28,7 @@ const homePage = () => {
       <p class="section-main--desc-subNav">ALL<span>(120)</span></p>
       <div class="section-main--list-movies"></div>
     </section>
+    ${footer()}
     `;
 };
 

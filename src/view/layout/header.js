@@ -6,7 +6,7 @@ const listNavIcon = [`<figure> <img src="${IcArrowRight}" alt="Logout"> <figcapt
 
 const header = () => {
   return `
-  <div class="header">
+  <header>
       <div class="header--logo">
           <figure>
               <img src="${IcLogo}" alt="logo">
@@ -16,7 +16,7 @@ const header = () => {
          <ul> ${navChild(listNav)} </ul>
          <ul>  ${navChild(listNavIcon)} </ul>
       </div>
-  </div>
+  </header>
   `;
 };
 
