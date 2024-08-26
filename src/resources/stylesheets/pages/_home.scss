@@ -16,6 +16,7 @@ body {
       $color: $thirdth-color
     );
     letter-spacing: -1.28px;
+    padding-top: pxToRem(80);
   }
   &--desc {
     @include font(
@@ -24,7 +25,7 @@ body {
       $line-height: 150%,
       $color: $fourth-color
     );
-
+    padding-top: pxToRem(16);
     span {
       color: #9c92f8;
     }
@@ -33,6 +34,8 @@ body {
     .search-container {
       @include flex($gap: pxToRem(16), $align: center);
       position: relative;
+      margin-top: pxToRem(36);
+      left: pxToRem(2);
       input {
         @include set-size($w: pxToRem(344), $h: pxToRem(64));
         @include font(
@@ -65,9 +68,11 @@ body {
   &--subNav {
     .subNav-container {
       @include flex($align: flex-start);
-      @include set-size($w: pxToRem(352), $h: pxToRem(56));
+      @include set-size($w: pxToRem(364), $h: pxToRem(56));
       padding: pxToRem(8);
       border-radius: pxToRem(12);
+      margin-top: pxToRem(88);
+      background-color: $background;
 
       button {
         @include font(
@@ -104,6 +109,7 @@ body {
       $color: $seventh-color
     );
     letter-spacing: -0.64px;
+    margin-top: pxToRem(32);
 
     span {
       @include font(
@@ -117,6 +123,7 @@ body {
   &--list-movies {
     @include flex($gap: pxToRem(30), $justify: center);
     flex-wrap: wrap;
+    padding-top: pxToRem(24);
     .list-movies-container {
       @include flex($direction: column, $align: flex-start, $gap: pxToRem(16));
       @include set-size($w: pxToRem(282), $h: pxToRem(480));
@@ -131,7 +138,6 @@ body {
         left: pxToRem(15);
         .head-box {
           @include flex($gap: 4px, $align: center);
-          @include set-size($w: pxToRem(60), $h: pxToRem(32));
           border-radius: 8px;
           background: $second-background-color;
           backdrop-filter: blur(4px);
