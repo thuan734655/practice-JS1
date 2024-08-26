@@ -5,14 +5,14 @@ const list_movies = (list=[]) => {
       <div class="list-movies-container--head">
        <div class="head-box">
         <img src="${data.iconStar}" alt="icon star">
-        <p>${data.quantityStar}</p>
+        <p>${data.star}</p>
        </div>
       </div> <!-- end list-movies-container--head -->
       <div class="list-movies-container--body">
-      <img src="${data.avtMovie}" alt="avatar">
+      <img src="${data.avatar}" alt="avatar">
       </div>
       <div class="list-movies-container--footer">
-      <p>${data.nameMovie}</p>
+      <p>${data.fullName}</p>
       </div>
      </div>
     `;
