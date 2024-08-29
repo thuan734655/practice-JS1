@@ -1,4 +1,4 @@
-import list_movies from "../../view/components/list-movies.js"
+import list_movies from "../../view/components/list-movies"
 
 const handleMovies = (dataMovies=[]) => {
   //convert data to code html 

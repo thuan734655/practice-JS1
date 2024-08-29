@@ -5,16 +5,15 @@
       use "addRoute" to add code html from homePage return into route "/home"
 */
 import Router from '../../router/Router.js';
-import moviePage from '../../view/pages/movies.js';
+import homePage from '../../view/pages/movies.js';
 
 class dataOfRoute {
   constructor() {
-    this.router = new Router(); 
+    this.router = new Router();
     this.initRoute();
   }
-
   initRoute() {
-    this.router.addRoute('/movies', moviePage());
+    this.router.addRoute('/movies', homePage());
   }
 }
 

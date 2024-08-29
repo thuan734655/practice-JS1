@@ -15,7 +15,6 @@ class RouteController {
   }
 
   defaultPage() {
-    // The default when loading the web is the login page
     history.pushState(null, '', '/movies');
     this.dataOfRoute.router.changeRoute();
   }
