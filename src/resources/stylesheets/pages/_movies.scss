@@ -10,25 +10,20 @@ body {
 .section-main {
   &--title {
     @include font(
-      $font-size: pxToRem(64),
-      $font-weight: 600,
-      $line-height: 125%,
-      $color: $thirdth-color
+      $font-size: pxToRem(12),
+      $font-weight: 400,
+      $line-height: 133%,
+      $color: $tenth-color
     );
-    letter-spacing: -1.28px;
     padding-top: pxToRem(80);
   }
   &--desc {
     @include font(
-      $font-size: pxToRem(16),
-      $font-weight: 400,
-      $line-height: 150%,
-      $color: $fourth-color
+      $font-size: pxToRem(64),
+      $font-weight: 600,
+      $line-height: 125%,
+      $color: $eleventh-color
     );
-    padding-top: pxToRem(16);
-    span {
-      color: #9c92f8;
-    }
   }
   &--search {
     .search-container {
@@ -42,7 +37,7 @@ body {
           $font-size: pxToRem(18),
           $font-weight: 600,
           $line-height: 114%,
-          $color: $thirdth-color
+          $color: $third-color
         );
         border-radius: 12px;
         border: 1px solid $boder-input;
@@ -65,41 +60,14 @@ body {
       }
     }
   }
-  &--subNav {
-    .subNav-container {
-      @include flex($align: flex-start);
-      @include set-size($w: pxToRem(364), $h: pxToRem(56));
-      padding: pxToRem(8);
-      border-radius: pxToRem(12);
-      margin-top: pxToRem(88);
-      background-color: $background;
-
-      button {
-        @include font(
-          $font-size: pxToRem(16),
-          $font-weight: 600,
-          $line-height: 150%,
-          $color: $fourth-color
-        );
-        letter-spacing: 0.32px;
-        border: transparent;
-        background-color: $background;
-      }
-      .subNav-container--btn-all {
-        @include set-size($w: pxToRem(85), $h: pxToRem(40));
-        border-radius: pxToRem(12);
-        background: $first-button;
-        color: $sixth-color;
-      }
-      .subNav-container--btn-movies {
-        @include set-size($w: pxToRem(132), $h: pxToRem(40));
-        border-radius: pxToRem(12);
-      }
-      .subNav-container--btn-tvShows {
-        @include set-size($w: pxToRem(144), $h: pxToRem(40));
-        border-radius: pxToRem(12);
-      }
-    }
+  &--desc-subNav {
+    @include font(
+      $font-size: pxToRem(16),
+      $font-weight: 400,
+      $line-height: 150%,
+      $color: $seventh-color
+    );
+    padding-top: pxToRem(48);
   }
   &--list-movies {
     @include flex($gap: pxToRem(30), $justify: center);
@@ -109,7 +77,7 @@ body {
       @include flex($direction: column, $align: flex-start, $gap: pxToRem(16));
       @include set-size($w: pxToRem(282), $h: pxToRem(480));
       border-radius: pxToRem(12);
-      background: $thirdth-background-color;
+      background: $third-background-color;
       padding: pxToRem(8) pxToRem(8) pxToRem(16) pxToRem(8);
       backdrop-filter: blur(40px);
       position: relative;
@@ -139,7 +107,7 @@ body {
             $font-size: pxToRem(16),
             $font-weight: 400,
             $line-height: pxToRem(24),
-            $color: $nineth-color
+            $color: $ninth-color
           );
           letter-spacing: 0.32px;
         }

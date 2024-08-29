@@ -1,7 +1,7 @@
 import header from '../layout/header';
 import footer from '../layout/footer';
 
-const moviePage = () => {
+const homePage = () => {
   return `
     ${header()}
     <section class ="section-main">
@@ -17,11 +17,11 @@ const moviePage = () => {
        <img class="search-container--icon" src="https://s3.cloudfly.vn/practice-js/images/search-normal.svg" alt="icon search">
       </div> 
      </div> <!-- end section-main--search-->
-      <p class="section-main--desc-subNav">120 items</p>
+      <p class="section-main--desc-subNav">120 items</span></p>
       <div class="section-main--list-movies"></div>
     </section>
     ${footer()}
     `;
 };
 
-export default moviePage;
+export default homePage ;
