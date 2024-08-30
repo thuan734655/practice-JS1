@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-const axiosClient = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: {
+const configAxios = {
+  baseUrl: 'http://localhost:3000',
+  header: {
     'Content-Type': 'application/json',
   },
-});
+};
+
+const axiosClient = axios.create(configAxios);
 
 axiosClient.interceptors.response.use (
     (res) => res.data, 
