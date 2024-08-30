@@ -1,0 +1,117 @@
+@use '../Abstract/' as *;
+
+body {
+  background-image: url('https://s3.cloudfly.vn/practice-js/images/Background.png');
+  background-color: $background;
+  background-position: pxToRem(80) pxToRem(-120);
+  background-repeat: no-repeat;
+}
+
+.section-main {
+  &--title {
+    @include font(
+      $font-size: pxToRem(12),
+      $font-weight: 400,
+      $line-height: 133%,
+      $color: $tenth-color
+    );
+    padding-top: pxToRem(80);
+  }
+  &--desc {
+    @include font(
+      $font-size: pxToRem(64),
+      $font-weight: 600,
+      $line-height: 125%,
+      $color: $eleventh-color
+    );
+  }
+  &--search {
+    .search-container {
+      @include flex($gap: pxToRem(16), $align: center);
+      position: relative;
+      margin-top: pxToRem(36);
+      left: pxToRem(2);
+      input {
+        @include set-size($w: pxToRem(344), $h: pxToRem(64));
+        @include font(
+          $font-size: pxToRem(18),
+          $font-weight: 600,
+          $line-height: 114%,
+          $color: $third-color
+        );
+        border-radius: 12px;
+        border: 1px solid $boder-input;
+        background: $background;
+        padding: pxToRem(12) pxToRem(16) pxToRem(12) pxToRem(50);
+      }
+      input::placeholder {
+        @include font(
+          $font-size: pxToRem(14),
+          $font-weight: 400,
+          $line-height: 114%,
+          $color: $placeholder-input
+        );
+      }
+      img {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: pxToRem(16);
+      }
+    }
+  }
+  &--desc-subNav {
+    @include font(
+      $font-size: pxToRem(16),
+      $font-weight: 400,
+      $line-height: 150%,
+      $color: $seventh-color
+    );
+    padding-top: pxToRem(48);
+  }
+  &--list-video {
+    @include flex($gap: pxToRem(30), $justify: center);
+    flex-wrap: wrap;
+    padding-top: pxToRem(24);
+    .list-movies-container {
+      @include flex($direction: column, $align: flex-start, $gap: pxToRem(16));
+      @include set-size($w: pxToRem(282), $h: pxToRem(480));
+      border-radius: pxToRem(12);
+      background: $third-background-color;
+      padding: pxToRem(8) pxToRem(8) pxToRem(16) pxToRem(8);
+      backdrop-filter: blur(40px);
+      position: relative;
+      &--head {
+        position: absolute;
+        top: pxToRem(15);
+        left: pxToRem(15);
+        .head-box {
+          @include flex($gap: 4px, $align: center);
+          border-radius: 8px;
+          background: $second-background-color;
+          backdrop-filter: blur(4px);
+          padding: 4px 8px;
+          p {
+            @include font(
+              $font-size: pxToRem(16),
+              $font-weight: 400,
+              $line-height: pxToRem(24),
+              $color: $eighth-color
+            );
+          }
+        }
+      }
+      &--footer {
+        p {
+          @include font(
+            $font-size: pxToRem(16),
+            $font-weight: 400,
+            $line-height: pxToRem(24),
+            $color: $ninth-color
+          );
+          letter-spacing: 0.32px;
+        }
+      }
+    }
+  }
+}
