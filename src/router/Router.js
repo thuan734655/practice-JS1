@@ -13,7 +13,7 @@ class Router {
       const route = this.routes.find((route) => route.path === path);
       if (route) {
         const { component } = route;
-        const container = document.querySelector('.container');
+        const container = document.querySelector('#root');
         if (typeof component === 'string') {
           container.innerHTML = component;
         } else {
