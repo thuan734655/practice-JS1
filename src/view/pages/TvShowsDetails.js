@@ -19,6 +19,7 @@ const imageStar = [
   {
     srcImg: 'https://s3.cloudfly.vn/practice-js/images/ic-star.svg',
     alt: 'icon star',
+    caption: '8.1',
   },
 ];
 
@@ -48,7 +49,9 @@ const dataBottomBody = [
     value: 'Action & Adventure, Sci-Fi & Fantasy, Drama',
   },
 ];
-
+const show = () => {
+  console.log(loadBox(dataBottomBody));
+};
 const TvShowsDetails = () => {
   return `
      ${header()}
@@ -60,11 +63,11 @@ const TvShowsDetails = () => {
          <div class="top-detail">
           <div class="top-detail-container">
            <div class="top-detail-container--nav">
-            <a class="nav-MaileHereko" href="/home"></a>
+            <a class="nav-MaileHereko" href="/home">MaileHereko</a>
             <p>/</p>
-            <a class="nav-TVShows" href="/TvShows"></a>
+            <a class="nav-TVShows" href="/TvShows">TV Shows</a>
            </div> 
-           <div class="name-movie">Lost In Space</div>
+           <div class="top-detail-container--name-movie">Lost In Space</div>
           </div>
          </div> <!-- end top-detail --> 
         </div>
@@ -78,8 +81,8 @@ const TvShowsDetails = () => {
           <div class="right--head">
            <p class="head--title">Have You Seen Our Robot?</p>
            <p class="head--desc">The mission to save Scarecrow takes an unexpected turn, throwing the Resolute into chaos. Judy hatches a plan to get a ship to Alpha Centauri.</p>
-           ${loadImage(imageStar, star)}
-          </div> <!-- end right--head --> 
+            ${loadImage(imageStar, false)}
+           </div> <!-- end right--head --> 
           <div class="right--body">
             ${loadBox(dataBottomBody)}
           </div>
@@ -91,3 +94,7 @@ const TvShowsDetails = () => {
      ${footer()}
     `;
 };
+
+export default TvShowsDetails;
+
+export { show };
