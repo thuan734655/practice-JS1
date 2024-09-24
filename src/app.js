@@ -1,3 +1,3 @@
-import RouteController from "./controller/changePages/RouteController.js";
+import routerController from './controller/RouteController';
 
-new RouteController();
+new routerController();

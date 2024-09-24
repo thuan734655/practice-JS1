@@ -1,6 +1,6 @@
-@use "../Base/typography";
-//font 
-$primary-font : Poppins;
+@use '../Base/typography';
+//font
+$primary-font: Poppins;
 
 //reponsive
 $mobile-small: 15em;
@@ -8,3 +8,15 @@ $mobile-small-max: 20em;
 $mobile-medium-max: 26.9375em;
 $tablet-small-max: 48em;
 $tablet-max: 64.0625em;
+
+//color
+$first-color: #a8aebf;
+$second-color: #c3c8d4;
+$background: #121829;
+$rectangle: #121829;
+$input: rgba(0, 0, 0, 0.1);
+$boder-input: #323b54;
+$placeholder-input: #475069;
+$text-input: #909298;
+$text-button: #fff;
+$first-button: #7b6ef6;
