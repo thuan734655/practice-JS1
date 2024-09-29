@@ -24,6 +24,12 @@ class Router {
       }
     }
   }
+  startTrackingUrl = () => {
+    window.addEventListener('hashchange', function () {
+      console.log('The hash has changed to:', window.location.hash);
+      changeRoute();
+    });
+  };
 }
 
 export default Router;
