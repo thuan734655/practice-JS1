@@ -1,16 +1,27 @@
-@use "../Abstract/_variables" as *;
-
+@use '../Abstract' as *;
 
 html {
-    box-sizing: border-box;
-  }
-  
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-  }
-  body {
-    font-family: $primary-font;
-    font-weight: 400;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+body {
+  font-family: $primary-font;
+  font-weight: 400;
+}
+
+#rootApp {
+  max-width: 1218px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+#rootLogin {
+  max-width: unset;
+  overflow: unset;
+  margin: unset;
 }

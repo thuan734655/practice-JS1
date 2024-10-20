@@ -29,9 +29,9 @@ const loginPage = () => {
         <input class = "input-password" type="password" placeholder="Password">
         <img class = "icon-eye" src="${IcEye}" alt="icon eye">
       </div>
+       <button class="btn-login" type="submit">Login</button>
       </div>   
       <div class ="right-box--footer">
-        <button class="btn-login" type="button">Login</button>
       </div>   
      </div>
     </div>
