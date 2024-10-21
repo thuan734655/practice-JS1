@@ -9,14 +9,14 @@ import {
 const loginPage = () => {
   return `
    ${headerLogin()}
-   <section class ="section-main">
-    <div class = "section-main__left">
+   <section class ="section-main-login " id = "rootLogin">
+    <div class = "section-main-login__left">
       <div class = "left-box">
         <div class = "left-box--bgr"></div>
         <div class = "left-box--image"><img src="${IcSaly}" alt="icon human"></div>
       </div>
     </div>
-    <div class = "section-main__right">
+    <div class = "section-main-login__right">
      <div class = "right-box">
       <div class = "right-box--head"> <p>Login</p> </div>
       <div class = "right-box--body"> 

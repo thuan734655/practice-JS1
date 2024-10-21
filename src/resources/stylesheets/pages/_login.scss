@@ -6,7 +6,7 @@ body {
   background-position: pxToRem(80) pxToRem(-120);
   background-repeat: no-repeat;
 }
-.section-main {
+.section-main-login {
   @include flex($justify: space-between);
   @include set-size($w: 92.5%);
   &__left {

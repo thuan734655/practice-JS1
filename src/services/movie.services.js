@@ -6,7 +6,7 @@ const getAllMovies = async (req) => {
     const res = await axiosClient.get('/movies/all', req);
     console.log(res);
     const html = list_movies(res);
-    const moviesDOM = document.querySelector('.section-main--list-movies');
+    const moviesDOM = document.querySelector('.section-main-home--list-movies');
     if (moviesDOM) {
       moviesDOM.innerHTML = html;
     } else {

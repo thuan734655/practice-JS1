@@ -6,7 +6,7 @@ const listNavIcon = [`<figure> <img src="${IcArrowRight}" alt="Logout"> <figcapt
 
 const header = () => {
   return `
-  <header>
+  <header id = "rootApp">
       <div class="header--logo">
           <figure>
               <img src="${IcLogo}" alt="logo">

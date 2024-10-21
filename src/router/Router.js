@@ -17,17 +17,9 @@ class Router {
     return route ? route : null;
   }
 
-  renderPage(content, controller, path) {
+  renderPage(content, controller) {
     const rootElement = document.querySelector('#root');
-
-    if (path == '/' || path == '/login') {
-      rootElement.id = 'rootLogin';
-    } else {
-      rootElement.id = 'rootApp';
-    }
-    // Update the content of the root element
     rootElement.innerHTML = content;
-
     // Call the controller function if provided
     if (controller) {
       controller();
