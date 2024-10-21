@@ -1,3 +1,3 @@
-import loginPage from './view/pages/login.js';
+import Router from "./router/Router.js"
 
-loginPage();
+new Router().init();
