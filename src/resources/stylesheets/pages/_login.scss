@@ -86,8 +86,26 @@ body {
           left: unset;
         }
       }
+      &--footer {
+        position: relative;
+        @include set-size($w: 100%);
+        p {
+          @include font(
+            $font-size: pxToRem(16),
+            $font-weight: 300,
+            $line-height: 125%,
+            $color: $second-color
+          );
+          span {
+            color: greenyellow;
+            font-style: italic;
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
+
   button {
     @include set-size($w: pxToRem(436), $h: pxToRem(56));
     @include font(
