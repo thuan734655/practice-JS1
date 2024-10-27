@@ -3,10 +3,10 @@
 body {
   background: $background;
   background-image: url('../assets/icons/Background.png');
-  background-position:  pxToRem(80) pxToRem(-120);
+  background-position: pxToRem(80) pxToRem(-120);
   background-repeat: no-repeat;
 }
-.section-main {
+.section-main-login {
   @include flex($justify: space-between);
   @include set-size($w: 92.5%);
   &__left {
@@ -47,9 +47,13 @@ body {
       }
 
       &--body {
-        @include flex($direction: column, $align: flex-start, $gap: pxToRem(16));
+        @include flex(
+          $direction: column,
+          $align: flex-start,
+          $gap: pxToRem(16)
+        );
         .input-login {
-          position: relative; 
+          position: relative;
         }
         input {
           @include set-size($w: pxToRem(436), $h: pxToRem(64));
@@ -82,17 +86,39 @@ body {
           left: unset;
         }
       }
+      &--footer {
+        position: relative;
+        @include set-size($w: 100%);
+        p {
+          @include font(
+            $font-size: pxToRem(16),
+            $font-weight: 300,
+            $line-height: 125%,
+            $color: $second-color
+          );
+          span {
+            color: greenyellow;
+            font-style: italic;
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
+
   button {
     @include set-size($w: pxToRem(436), $h: pxToRem(56));
     @include font(
-            $font-size: pxToRem(16),
-            $font-weight: 400,
-            $color: $text-button
-          );
-    background-color: $first-button;  
+      $font-size: pxToRem(16),
+      $font-weight: 400,
+      $color: $text-button
+    );
+    background-color: $first-button;
     border-radius: 12px;
     border: 2px solid $first-button;
+    cursor: pointer;
+  }
+  button:hover {
+    transform: scale(1.01);
   }
 }
