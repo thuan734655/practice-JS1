@@ -31,11 +31,12 @@ const loginPage = () => {
       </div>
       </div>   
       <div class ="right-box--footer">
-        <button class="btn-login" type="button">Login</button>
+       <p class ="register">If you don't have an account yet, please <span>register</span>.</p>
       </div>   
      </div>
     </div>
    </section>
+   <section class ="section-main-register"></section>
   `;
 };
 
