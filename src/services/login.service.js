@@ -3,6 +3,7 @@ import boxState from '../view/components/box-state.js';
 import axiosClient from './axiosClient.js';
 
 const login_api = async (reqBody) => {
+  const router = new Router();
   try {
     const res = await axiosClient.post('/login', reqBody);
     const { success, message } = res;
