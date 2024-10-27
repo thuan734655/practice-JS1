@@ -1,17 +1,25 @@
 import Router from '../router/Router';
+import boxState from '../view/components/box-state.js';
 import axiosClient from './axiosClient.js';
-import getCookie from '../helper/getCookie.js';
 
 const handleLogin = async (email, password) => {
   const router = new Router();
   const reqBody = { email: email, password: password };
   try {
-    const res = await axiosClient.post('/login', reqBody, {
-      withCredentials: true,
-    });
+    const res = await axiosClient.post('/login', reqBody);
     const { success, message } = res;
-    console.log(res);
     if (success) {
+      // const boxStateElemenet = document.createElement('div');
+      // boxStateElemenet.innerHTML = boxState({
+      //   classState: 'success',
+      //   title: 'successful',
+      //   desc: 'login successful',
+      // });
+      // console.log(boxStateElemenet);
+      // document
+      //   .querySelector('.section-main-login')
+      //   .appendChild(boxStateElemenet);
+
       router.navigateTo('/home');
     } else {
       console.log(message);
