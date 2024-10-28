@@ -1,14 +1,28 @@
+import loginPage from '../view/pages/login';
+import login from '../controller/login.controller.js';
+import homePage from '../view/pages/home.js';
+import homeController from '../controller/home.controller.js';
+import TvShowsDetailsPage from '../view/pages/TvShowsDetails.js';
+import TvShowsDetailsController from '../controller/tvshowsDetail.controller.js';
+import headerController from '../controller/header.controller.js';
+
 class Router {
   constructor() {
     this.routes = [
-      // { path: '/', view: loginPage(), controller: login },
-      // { path: '/login', view: loginPage(), controller: login },
-      // { path: '/home', view: homePage(), controller: homeController },
+      { path: '/', view: loginPage(), controller: login },
+      { path: '/login', view: loginPage(), controller: login },
+      { path: '/home', view: homePage(), controller: homeController },
+      {
+        path: '/tvshow/details',
+        view: TvShowsDetailsPage(),
+        controller: TvShowsDetailsController,
+      },
     ];
   }
-  // get content of path
+  // Get content of path
   loadPage(path) {
-    const route = this.routes.find((route) => route.path === path);
+    const [basePath] = path.split('?');
+    const route = this.routes.find((route) => route.path === basePath);
     return route ? route : null;
   }
 
@@ -18,6 +32,7 @@ class Router {
     // Call the controller function if provided
     if (controller) {
       controller();
+      headerController();
     }
   }
 

@@ -1,6 +1,6 @@
-@use "../Base/typography";
-//font 
-$primary-font : Poppins;
+@use '../Base/typography';
+//font
+$primary-font: Poppins;
 
 //reponsive
 $mobile-small: 15em;
@@ -9,14 +9,40 @@ $mobile-medium-max: 26.9375em;
 $tablet-small-max: 48em;
 $tablet-max: 64.0625em;
 
-//color
-$first-color: #A8AEBF;
-$second-color:#C3C8D4;
-$background : #121829;
+// Colors
+$background: #121829;
+$second-background-color: rgba(0, 0, 0, 0.65);
+$third-background-color: rgba(32, 40, 62, 0.8);
+
+$third-color: #ebeef5;
+$fourth-color: #8e95a9;
+$fifth-color: #9c92f8;
+$sixth-color: #ebe9fe;
+$seventh-color: #767e94;
+$eighth-color: #ffad49;
+$ninth-color: #ebeef5;
+$tenth-color: #beb7fb;
+$eleventh-color: #ebeef5;
+$twelfth-color: #beb7fb;
+
+// UI Element Colors
 $rectangle: #121829;
-$input: rgba(0, 0, 0, 0.10);
-$boder-input: #323B54;
+$input: rgba(0, 0, 0, 0.1);
+$boder-input: #323b54;
 $placeholder-input: #475069;
 $text-input: #909298;
-$text-button: #FFF;
-$first-button: #7B6EF6;
+$text-button: #fff;
+$first-button: #7769f1;
+
+// Additional Colors
+$first-color: #a8aebf;
+$second-color: #c3c8d4;
+
+// Status Colors
+$success-color: #4caf50;
+$error-color: #f44336;
+$text-color: #fff;
+
+// Box Shadows
+$box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$box-shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.15);
