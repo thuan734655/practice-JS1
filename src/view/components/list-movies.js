@@ -1,7 +1,8 @@
-const list_movies = (list=[]) => {
-  return list.map((data) => {
-    return `
-     <div class="list-movies-container">
+const list_movies = (list = []) => {
+  return list
+    .map((data) => {
+      return `
+     <div class="list-movies-container" id="${data.idVideo}">
       <div class="list-movies-container--head">
        <div class="head-box">
         <img src="${data.iconStar}" alt="icon star">
@@ -16,7 +17,8 @@ const list_movies = (list=[]) => {
       </div>
      </div>
     `;
-  }).join(' ');
-}
+    })
+    .join(' ');
+};
 
 export default list_movies;

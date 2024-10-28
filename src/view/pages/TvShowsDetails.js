@@ -1,7 +1,5 @@
 import header from '../layout/header';
-import footer from '../layout/footer';
 import loadImage from '../components/image';
-import loadBox from '../components/box';
 
 const imageTop = [
   {
@@ -23,17 +21,14 @@ const imageStar = [
   },
 ];
 
-const show = () => {
-  console.log(loadBox(dataBottomBody));
-};
-const TvShowsDetails = () => {
+const TvShowsDetailsPage = () => {
   return `
      ${header()}
-      <section class="section-main "> 
+      <section class="section-main"  id= "rootApp"> 
        <div class="section-main__container">
         <div class="section-main__container--top">
         <div class="top-container">
-         ${loadImage(imageTop, false)} 
+         ${loadImage(imageTop)} 
          <div class="top-detail">
           <div class="top-detail-container">
            <div class="top-detail-container--nav">
@@ -49,13 +44,13 @@ const TvShowsDetails = () => {
         <div class="section-main__container--bottom">
         <div class="bottom-container">
          <div class="bottom-container--left">
-          ${loadImage(imageBottom, false)}
+          ${loadImage(imageBottom)}
          </div>
          <div class="bottom-container--right">
           <div class="right--head">
            <p class="head--title">Have You Seen Our Robot?</p>
            <p class="head--desc">The mission to save Scarecrow takes an unexpected turn, throwing the Resolute into chaos. Judy hatches a plan to get a ship to Alpha Centauri.</p>
-            ${loadImage(imageStar, false)}
+            ${loadImage(imageStar)}
            </div> <!-- end right--head --> 
           <div class="right--body"></div>
          </div>
@@ -63,10 +58,7 @@ const TvShowsDetails = () => {
         </div><!-- end section-main__container--bottom -->
        </div> 
       </section>
-     ${footer()}
     `;
 };
 
-export default TvShowsDetails;
-
-export { show };
+export default TvShowsDetailsPage;

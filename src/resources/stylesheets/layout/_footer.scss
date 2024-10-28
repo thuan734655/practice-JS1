@@ -1,43 +1,34 @@
 @use '../Abstract' as *;
 
 footer {
-  padding-top: pxToRem(90);
-  padding-bottom: pxToRem(40);
-  @include flex($direction: column, $gap: pxToRem(80));
+  @include flex($direction: column, $gap: pxToRem(50));
   li:hover {
     transform: scale(1.02);
   }
   .footer--head {
     .head-container {
       margin-left: pxToRem(10);
-
-      a {
-        display: inline-block;
+      figure {
+        @include flex(
+          $direction: column,
+          $gap: pxToRem(10),
+          $justify: center,
+          $align: center
+        );
         @include set-size($w: pxToRem(70), $h: pxToRem(60));
-        text-decoration: none;
+        img {
+          @include set-size($w: 100%, $h: 100%);
+          object-fit: cover;
+        }
 
-        figure {
-          @include flex(
-            $direction: column,
-            $gap: pxToRem(10),
-            $justify: center,
-            $align: center
+        figcaption {
+          @include font(
+            $font-size: pxToRem(18),
+            $font-weight: 600,
+            $line-height: 66%,
+            $color: $ninth-color
           );
-          @include set-size($w: pxToRem(70), $h: pxToRem(60));
-          img {
-            @include set-size($w: 100%, $h: 100%);
-            object-fit: cover;
-          }
-
-          figcaption {
-            @include font(
-              $font-size: pxToRem(24),
-              $font-weight: 600,
-              $line-height: 66%,
-              $color: $nineth-color
-            );
-            letter-spacing: 0.72px;
-          }
+          letter-spacing: 0.72px;
         }
       }
     }

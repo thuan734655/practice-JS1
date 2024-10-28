@@ -12,7 +12,7 @@ const header = () => {
   <header id = "rootApp">
       <div class="header--logo">
           <figure>
-              <img src="${IcLogo}" alt="logo">
+              <img class="logo" src="${IcLogo}" alt="logo">
           </figure>
       </div>
       <div class="header--nav">

@@ -1,3 +1,4 @@
+import Router from '../router/Router.js';
 import { getMovies } from '../services/movie.services.js';
 import { getTvShows } from '../services/tvShows.service.js';
 import { getVideos } from '../services/videos.service.js';
@@ -6,7 +7,6 @@ import listMovies from '../view/components/list-movies.js';
 const videosPerPage = 8; // Number of videos to display per page
 let currentPage = 1; // Current page for pagination
 let allVideos = []; // Store all videos for filtering and pagination
-
 const fetchVideosByCategory = async (category) => {
   const videoSources = {
     all: getVideos,
@@ -36,6 +36,18 @@ const renderMovies = (movies) => {
   movieContainer.innerHTML = movieContainer
     ? listMovies(movies)
     : console.error('Failed to select the movie container');
+
+  changeToPageDetail();
+};
+
+const changeToPageDetail = () => {
+  const router = new Router();
+  const videosElement = document.querySelectorAll('.list-movies-container');
+  videosElement.forEach((video) => {
+    video.addEventListener('click', () => {
+      router.navigateTo(`/tvshow/details?idVideo=${video.id}`);
+    });
+  });
 };
 
 const updateVideoCount = (title, count) => {
@@ -153,6 +165,7 @@ const homeController = async () => {
   renderPaginatedMovies(allVideos);
   updateVideoCount(buttonLabel, count);
 
+  changeToPageDetail();
   setupSearchListener();
   setupSubNavListeners();
 };

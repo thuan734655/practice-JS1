@@ -6,7 +6,7 @@
       $font-size: pxToRem(64),
       $font-weight: 600,
       $line-height: 125%,
-      $color: $thirdth-color
+      $color: $third-color
     );
     letter-spacing: -1.28px;
     padding-top: pxToRem(20);
@@ -35,7 +35,7 @@
           $font-size: pxToRem(18),
           $font-weight: 600,
           $line-height: 114%,
-          $color: $thirdth-color
+          $color: $third-color
         );
         border-radius: 12px;
         border: 1px solid $boder-input;
@@ -118,7 +118,7 @@
       @include flex($direction: column, $align: flex-start, $gap: pxToRem(16));
       @include set-size($w: pxToRem(282), $h: pxToRem(480));
       border-radius: pxToRem(12);
-      background: $thirdth-background-color;
+      background: $third-background-color;
       padding: pxToRem(8) pxToRem(8) pxToRem(16) pxToRem(8);
       backdrop-filter: blur(40px);
       position: relative;
@@ -154,7 +154,7 @@
             $font-size: pxToRem(16),
             $font-weight: 400,
             $line-height: pxToRem(24),
-            $color: $nineth-color
+            $color: $ninth-color
           );
           letter-spacing: 0.32px;
         }
