@@ -1,12 +1,11 @@
 import axiosClient from './axiosClient';
 
-const getAllMovies = (req) => {
+export const getMovies = async () => {
   try {
-    const res = axiosClient.get('/movies/all', req);
-    return res;
+    const res = await axiosClient.get('/movies');
+    return res.data.data;
   } catch (error) {
-    console.error('error => ' + error);
+    console.error('error => ' + error); 
   }
 };
 
-export {getAllMovies};

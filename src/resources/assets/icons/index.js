@@ -15,7 +15,6 @@ export {default as IcTwoMan} from "./two-man.png";
 export {default as IcYourMother} from "./your-mother.png";
 export {default as IcEmail} from "./email.svg";
 export {default as IcEye} from "./eye.svg";
-export {default as IcArrowRight} from "./ic-arrow-right.svg";
 export {default as IcLogo} from "./ic-logo.svg";
 export {default as IcStar} from "./ic-star.svg";
 export {default as IcKeySquare} from "./key-square.svg";

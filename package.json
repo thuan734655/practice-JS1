@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.12.0",
+    "buffer": "^6.0.3",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
@@ -21,7 +22,8 @@
     "parcel": "^2.12.0",
     "posthtml-doctype": "^1.1.1",
     "posthtml-include": "^2.0.1",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "process": "^0.11.10"
   },
   "lint-staged": {
     "src/**/*.{js}": "eslint --cache --fix",

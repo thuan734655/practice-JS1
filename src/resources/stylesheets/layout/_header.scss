@@ -1,6 +1,5 @@
 @use '../Abstract' as *;
 
-
 header {
   @include flex($align: center, $justify: space-between);
   margin: 0 auto;
@@ -11,6 +10,15 @@ header {
 
     ul {
       @include flex($gap: pxToRem(32), $align: center);
+
+      li:hover {
+        transform: scale(1.05);
+        a,
+        path {
+          color: rgb(255, 119, 0);
+          stroke: rgb(255, 119, 0);
+        }
+      }
 
       a {
         text-decoration: none;
@@ -23,7 +31,7 @@ header {
       }
     }
     figure {
-      @include flex($direction: row-reverse, $gap: pxToRem(8));
+      @include flex($direction: row-reverse, $gap: pxToRem(8), $align: center);
     }
   }
 }

@@ -1,12 +1,5 @@
 @use '../Abstract/' as *;
 
-body {
-  background-image: url('https://s3.cloudfly.vn/practice-js/images/Background.png');
-  background-color: $background;
-  background-position: pxToRem(80) pxToRem(-120);
-  background-repeat: no-repeat;
-}
-
 .section-main {
   &--title {
     @include font(
@@ -16,7 +9,7 @@ body {
       $color: $thirdth-color
     );
     letter-spacing: -1.28px;
-    padding-top: pxToRem(80);
+    padding-top: pxToRem(20);
   }
   &--desc {
     @include font(
@@ -84,20 +77,17 @@ body {
         letter-spacing: 0.32px;
         border: transparent;
         background-color: $background;
+        border-radius: pxToRem(12);
+        cursor: pointer;
       }
       .subNav-container--btn-all {
         @include set-size($w: pxToRem(85), $h: pxToRem(40));
-        border-radius: pxToRem(12);
-        background: $first-button;
-        color: $sixth-color;
       }
       .subNav-container--btn-movies {
         @include set-size($w: pxToRem(132), $h: pxToRem(40));
-        border-radius: pxToRem(12);
       }
       .subNav-container--btn-tvShows {
         @include set-size($w: pxToRem(144), $h: pxToRem(40));
-        border-radius: pxToRem(12);
       }
     }
   }
@@ -121,9 +111,9 @@ body {
     }
   }
   &--list-movies {
-    @include flex($gap: pxToRem(30), $justify: center);
+    @include flex($gap: pxToRem(30), $justify: space-between);
     flex-wrap: wrap;
-    padding-top: pxToRem(24);
+    padding: pxToRem(24) 0 pxToRem(44) 0;
     .list-movies-container {
       @include flex($direction: column, $align: flex-start, $gap: pxToRem(16));
       @include set-size($w: pxToRem(282), $h: pxToRem(480));
@@ -132,6 +122,12 @@ body {
       padding: pxToRem(8) pxToRem(8) pxToRem(16) pxToRem(8);
       backdrop-filter: blur(40px);
       position: relative;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.02);
+      }
+
       &--head {
         position: absolute;
         top: pxToRem(15);
@@ -165,4 +161,35 @@ body {
       }
     }
   }
+  .pagination-controls {
+    @include flex($justify: center, $gap: pxToRem(10));
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    button {
+      @include font(
+        $font-size: pxToRem(16),
+        $font-weight: 400,
+        $line-height: pxToRem(24),
+        $color: $text-button
+      );
+      background-color: transparent;
+      border: transparent;
+      padding: 0 pxToRem(10);
+      cursor: pointer;
+    }
+    button:hover {
+      border: 1px solid #9c92f8;
+    }
+    .pagination-controls-button-active {
+      background-color: orangered !important;
+    }
+  }
+}
+
+// sub nav
+.button-active {
+  background-color: $first-button !important;
+  color: $sixth-color !important;
 }

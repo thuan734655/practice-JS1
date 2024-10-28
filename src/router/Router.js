@@ -1,11 +1,14 @@
 import loginPage from '../view/pages/login';
 import login from '../controller/login.controller.js';
+import homePage from '../view/pages/home.js';
+import homeController from '../controller/home.controller.js';
 
 class Router {
   constructor() {
     this.routes = [
       { path: '/', view: loginPage(), controller: login },
       { path: '/login', view: loginPage(), controller: login },
+      { path: '/home', view: homePage(), controller: homeController },
     ];
   }
   // get content of path

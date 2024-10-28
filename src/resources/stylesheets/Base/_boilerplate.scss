@@ -14,8 +14,22 @@ body {
   font-weight: 400;
 }
 
-#root {
-  max-width: 1218px;
+#rootApp {
+  max-width: 1318px;
   overflow: hidden;
   margin: 0 auto;
+  padding: 20px;
+}
+
+#rootLogin {
+  max-width: unset;
+  overflow: unset;
+  margin: unset;
+}
+
+body {
+  background-image: url('https://s3.cloudfly.vn/practice-js/images/Background.png');
+  background-color: $background;
+  background-position: pxToRem(80) pxToRem(-120);
+  background-repeat: no-repeat;
 }

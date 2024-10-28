@@ -7,7 +7,7 @@ const listAboutUs = ['Join us', 'Contact us'];
 
 const footer = () => {
     return `
-     <footer>
+     <footer id = "rootApp"> 
       <div class="footer--head">
        <div class="head-container">
        ${loadImage([{srcImg:"https://s3.cloudfly.vn/practice-js/images/ic-logo.svg", caption: "Movies",alt:"logo", link: "/home"}],true)}
