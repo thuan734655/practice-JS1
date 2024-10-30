@@ -24,10 +24,10 @@ const loader = async (idVideo) => {
   <figcaption>${star}</figcaption>`;
 
     document.querySelector('.top-container figure').innerHTML =
-      ` <img src="${background}" alt="icon star">`;
+      ` <img src="http://localhost:3000${background}" alt="backdroung">`;
 
     document.querySelector('.bottom-container--left figure').innerHTML =
-      ` <img src="${avatar}" alt="icon star">`;
+      ` <img src="http://localhost:3000${avatar}" alt="avatar">`;
   };
   // Helper function to format dates
   const formatDate = (date) => new Date(date).toLocaleDateString();

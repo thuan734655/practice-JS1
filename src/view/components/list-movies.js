@@ -10,7 +10,7 @@ const list_movies = (list = []) => {
        </div>
       </div> <!-- end list-movies-container--head -->
       <div class="list-movies-container--body">
-      <img src="${data.avatar}" alt="avatar">
+      <img src="http://localhost:3000${data.avatar}" alt="avatar">
       </div>
       <div class="list-movies-container--footer">
       <p>${data.fullName}</p>

@@ -2,9 +2,16 @@ import { IcLogo } from '../../resources/assets/icons/index.js';
 import navChild from '../components/navChild.js';
 import icArrowRight from '../../resources/assets/icons/ic-arrow-right.js';
 
-const listNav = ['Movies', 'TV Shows'];
+const listNav = [
+  { text: 'Movies', href: '/movies' },
+  { text: 'TV Shows', href: '/tvshows' },
+];
+
 const listNavIcon = [
-  `<figure> ${icArrowRight()} <figcaption>Logout</figcaption> </figure>`,
+  {
+    text: `<figure> ${icArrowRight()} <figcaption>Logout</figcaption> </figure>`,
+    href: '/home',
+  },
 ];
 
 const header = () => {

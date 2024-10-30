@@ -65,6 +65,7 @@ body {
     &--bottom {
       padding-left: pxToRem(80);
       .bottom-container {
+        @include flex($gap: pxToRem(80));
         &--left {
           figure {
             @include set-size($w: 480, $h: pxToRem(720));
@@ -75,7 +76,6 @@ body {
             }
           }
         }
-        @include flex($gap: pxToRem(80));
         &--right {
           @include set-size($w: pxToRem(480));
           @include flex($direction: column, $gap: pxToRem(24));

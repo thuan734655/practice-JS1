@@ -12,6 +12,14 @@
     ul {
       @include flex($gap: pxToRem(48));
 
+      li:hover {
+        transform: scale(1.05);
+        a
+       {
+          color: rgb(255, 119, 0);
+          stroke: rgb(255, 119, 0);
+        }
+      }
       a {
         text-decoration: none;
         @include font(

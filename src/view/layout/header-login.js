@@ -1,8 +1,17 @@
 import { IcLogo, IcLogout } from '../../resources/assets/icons/index.js';
 import navChild from '../components/navChild.js';
 
-const listNav = ['Dashboard', 'Suggestions', 'Add'];
-const listNavIcon = [`<figure> <img src="${IcLogout}" alt="Logout"> <figcaption>Logout</figcaption> </figure>`];
+const listNav = [
+  { text: 'Dashboard', href: '/dashboard' },
+  { text: 'Suggestions', href: '/suggestions' },
+  { text: 'Add', href: '/add' },
+];
+const listNavIcon = [
+  {
+    text: `<figure> <img src="${IcLogout}" alt="Logout"> <figcaption>Logout</figcaption> </figure>`,
+    href: '/home',
+  },
+];
 
 const headerLogin = () => {
   return `

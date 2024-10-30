@@ -5,6 +5,8 @@ import homeController from '../controller/home.controller.js';
 import TvShowsDetailsPage from '../view/pages/TvShowsDetails.js';
 import TvShowsDetailsController from '../controller/tvshowsDetail.controller.js';
 import headerController from '../controller/header.controller.js';
+import addPage from '../view/pages/add.js';
+import addController from '../controller/add.controller.js';
 
 class Router {
   constructor() {
@@ -17,6 +19,7 @@ class Router {
         view: TvShowsDetailsPage(),
         controller: TvShowsDetailsController,
       },
+      { path: '/add', view: addPage(), controller: addController },
     ];
   }
   // Get content of path
