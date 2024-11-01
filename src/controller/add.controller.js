@@ -1,73 +1,52 @@
 import Router from '../router/Router.js';
 import { addVideo, getMyList } from '../services/videos.service.js';
-import form_add from '../view/components/form-add.js';
+import formAdd from '../view/components/form-add.js';
 import listMovies from '../view/components/list-movies.js';
 
-const videosPerPage = 8; // Số video hiển thị mỗi trang
-let currentPage = 1; // Trang hiện tại
-let allVideos = []; // Lưu trữ tất cả video để lọc và phân trang
+const videosPerPage = 8;
+let currentPage = 1;
+let allVideos = [];
+let filteredVideos = []; // Store the filtered video list
 
-const getMyList = async () => {
-  return (videos = await getMyList());
+/** Fetch video list */
+const fetchVideoList = async () => {
+  allVideos = await getMyList();
+  filteredVideos = []; // Reset filtered list
+  renderPaginatedVideos(allVideos);
 };
 
+/** Render video list */
 const renderMovies = (movies) => {
   const movieContainer = document.querySelector('.section-main--list-movies');
-  movieContainer.innerHTML = movieContainer
-    ? listMovies(movies)
-    : console.error('Failed to select the movie container');
-
-  changeToPageDetail();
-};
-
-const changeToPageDetail = () => {
-  const router = new Router();
-  const videosElement = document.querySelectorAll('.list-movies-container');
-  videosElement.forEach((video) => {
-    video.addEventListener('click', () => {
-      router.navigateTo(`/tvshow/details?idVideo=${video.id}`);
-    });
-  });
-};
-
-const updateVideoCount = (title, count) => {
-  const quantityContainer = document.querySelector('.quantity-videos');
-  if (quantityContainer)
-    quantityContainer.innerHTML = `${title} <span>(${count})</span>`;
-};
-
-// Hàm lọc video theo từ khóa tìm kiếm
-const filterMoviesBySearch = (searchTerm) =>
-  allVideos.filter((video) =>
-    video.fullName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-const setupSearchListener = () => {
-  const searchInput = document.getElementById('searchInput');
-  if (searchInput) {
-    searchInput.addEventListener('input', (event) => {
-      const filteredVideos = filterMoviesBySearch(event.target.value);
-      renderPaginatedMovies(filteredVideos);
-      updateVideoCount('Search Results', filteredVideos.length); // Cập nhật số lượng video tìm thấy
-    });
+  if (movieContainer) {
+    movieContainer.innerHTML = listMovies(movies);
+    handleMovieClick();
+  } else {
+    console.error('Failed to find movie container');
   }
 };
 
-const renderPaginatedMovies = (videos) => {
-  const totalVideos = videos.length;
+/** Render paginated videos */
+const renderPaginatedVideos = (videos) => {
+  const videoList = videos;
+  const totalVideos = videoList.length;
   const totalPages = Math.ceil(totalVideos / videosPerPage);
   const startIndex = (currentPage - 1) * videosPerPage;
-  const paginatedVideos = videos.slice(startIndex, startIndex + videosPerPage);
+  const paginatedVideos = videoList.slice(
+    startIndex,
+    startIndex + videosPerPage
+  );
 
   renderMovies(paginatedVideos);
   updatePaginationControls(totalPages);
 };
 
+/** Update pagination controls */
 const updatePaginationControls = (totalPages) => {
   const paginationContainer = document.querySelector('.pagination-controls');
   if (!paginationContainer) return;
 
-  paginationContainer.innerHTML = ''; // Xóa các điều khiển hiện có
+  paginationContainer.innerHTML = '';
   const createButton = (text, onClick, disabled = false) => {
     const button = document.createElement('button');
     button.innerText = text;
@@ -82,7 +61,9 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage > 1) {
           currentPage--;
-          renderPaginatedMovies(allVideos);
+          renderPaginatedVideos(
+            filteredVideos.length ? filteredVideos : allVideos
+          );
         }
       },
       currentPage === 1
@@ -91,14 +72,12 @@ const updatePaginationControls = (totalPages) => {
 
   for (let i = 1; i <= totalPages; i++) {
     paginationContainer.appendChild(
-      createButton(
-        i,
-        () => {
-          currentPage = i;
-          renderPaginatedMovies(allVideos);
-        },
-        false
-      )
+      createButton(i, () => {
+        currentPage = i;
+        renderPaginatedVideos(
+          filteredVideos.length ? filteredVideos : allVideos
+        );
+      })
     );
   }
 
@@ -108,7 +87,9 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage < totalPages) {
           currentPage++;
-          renderPaginatedMovies(allVideos);
+          renderPaginatedVideos(
+            filteredVideos.length ? filteredVideos : allVideos
+          );
         }
       },
       currentPage === totalPages
@@ -116,13 +97,68 @@ const updatePaginationControls = (totalPages) => {
   );
 };
 
-const visibleAddForm = () => {
-  const form_add_element = document.querySelector('.form-add');
+/** Handle search input */
+const handleSearchInput = () => {
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (event) => {
+      const searchTerm = event.target.value.trim().toLowerCase();
+      filteredVideos = allVideos.filter((video) =>
+        video.fullName.toLowerCase().includes(searchTerm)
+      );
+      currentPage = 1; // Reset current page on search
+      renderPaginatedVideos(filteredVideos);
+    });
+  }
+};
+
+/** Handle movie click event */
+const handleMovieClick = () => {
+  const videoElements = document.querySelectorAll('.list-movies-container');
+
+  videoElements.forEach((video) => {
+    video.addEventListener('click', () => toggleActionButtons(video));
+  });
+
+  const toggleActionButtons = (video) => {
+    const actionButtons = video.querySelector('.action-buttons');
+
+    const lastSelectedVideoId = localStorage.getItem('lastSelectedVideoId');
+    if (lastSelectedVideoId && lastSelectedVideoId !== video.id) {
+      const lastSelectedVideo = document.getElementById(lastSelectedVideoId);
+      if (lastSelectedVideo) {
+        lastSelectedVideo.querySelector('.action-buttons').style.display =
+          'none';
+      }
+    }
+
+    localStorage.setItem('lastSelectedVideoId', video.id);
+    actionButtons.style.display = 'block';
+    attachButtonHandlers(actionButtons);
+  };
+
+  const attachButtonHandlers = (actionButtons) => {
+    const btnView = actionButtons.querySelector('.btn-view');
+    const btnEdit = actionButtons.querySelector('.btn-edit');
+    const btnDelete = actionButtons.querySelector('.btn-delete');
+
+    btnView.onclick = () => {
+      const router = new Router();
+      router.navigateTo(`/tvshow/details`);
+    };
+    btnEdit.onclick = () => console.log('Edit');
+    btnDelete.onclick = () => console.log('Delete');
+  };
+};
+
+/** Display add video form */
+const handleAddFormDisplay = () => {
+  const formAddElement = document.querySelector('.form-add');
   document.querySelector('#add-new-item').addEventListener('click', () => {
-    form_add_element.innerHTML = form_add();
+    formAddElement.innerHTML = formAdd();
 
     document.querySelector('.btn-cancel').addEventListener('click', () => {
-      form_add_element.innerHTML = '';
+      formAddElement.innerHTML = '';
     });
 
     document
@@ -131,39 +167,34 @@ const visibleAddForm = () => {
   });
 };
 
+/** Handle adding a new video */
 const handleAddNewVideo = async (event) => {
   event.preventDefault();
-
   const form = event.target;
   const formData = new FormData(form);
 
   try {
     const result = await addVideo(formData);
-    console.log(result);
-    if (result.success === true) {
-      alert('add new item successful');
+    if (result.success) {
+      alert('Add new item successful');
       document.querySelector('.form-add').innerHTML = '';
 
-      const videoList = await getMyList();
-      allVideos = videoList;
-      renderPaginatedMovies(allVideos);
+      allVideos = await getMyList();
+      filteredVideos = []; // Reset filtered list
+      renderPaginatedVideos(allVideos);
     } else {
-      alert('add new item fail');
+      alert('Add new item failed');
     }
   } catch (err) {
-    console.log('err add => ', err);
+    console.error('Error adding video:', err);
   }
 };
 
+/** Initialize controller */
 const addController = async () => {
-  const videoList = await getMyList();
-  allVideos = videoList;
-  renderPaginatedMovies(allVideos);
-
-  changeToPageDetail();
-  setupSearchListener();
-
-  visibleAddForm();
+  await fetchVideoList();
+  handleSearchInput();
+  handleAddFormDisplay();
 };
 
 export default addController;

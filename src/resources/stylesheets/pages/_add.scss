@@ -90,7 +90,7 @@
     }
   }
   &--list-movies {
-    @include flex($gap: pxToRem(30), $justify: space-between);
+    @include flex($gap: pxToRem(40), $justify: space-between);
     flex-wrap: wrap;
     padding: pxToRem(24) 0 pxToRem(44) 0;
     .list-movies-container {
@@ -131,7 +131,9 @@
         @include set-size($w: 100%, $h: 100%);
         img {
           @include set-size($w: 100%, $h: 100%);
-          object-fit: fill;
+          min-width: pxToRem(266);
+          min-height: pxToRem(416);
+          object-fit: cover;
           border-radius: pxToRem(10);
         }
       }
@@ -144,6 +146,46 @@
             $color: $ninth-color
           );
           letter-spacing: 0.32px;
+        }
+      }
+      .action-buttons {
+        @include flex($gap: pxToRem(10));
+        margin-top: pxToRem(10);
+        position: absolute;
+        top: pxToRem(40);
+        left: pxToRem(15);
+      }
+
+      .action-buttons button {
+        @include font(
+          $font-size: pxToRem(14),
+          $font-weight: 600,
+          $color: $text-color
+        );
+        padding: pxToRem(8) pxToRem(12);
+        border: none;
+        border-radius: pxToRem(4);
+        cursor: pointer;
+        background-color: #3c373793;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+      .btn-view:hover {
+        background-color: #2980b9;
+      }
+      .btn-edit {
+        // background-color: #f1c40f;
+
+        &:hover {
+          background-color: #d4ac0d;
+        }
+      }
+      .btn-delete {
+        // background-color: #e74c3c;
+
+        &:hover {
+          background-color: #c0392b;
         }
       }
     }

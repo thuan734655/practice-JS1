@@ -72,14 +72,13 @@ const render = (videos) => {
   const html = loadBox(videos);
   boxElement.innerHTML = html;
 };
-const getIdVideoFromUrl = () => {
-  const params = new URLSearchParams(window.location.search);
-  const idVideo = params.get('idVideo');
+const getIdVideo = () => {
+  const idVideo = localStorage.getItem('lastSelectedVideoId');
   return idVideo;
 };
 
 const TvShowsDetailsController = async () => {
-  const idVideo = getIdVideoFromUrl();
+  const idVideo = getIdVideo();
   const videos = await loader(idVideo);
   render(videos);
 };
