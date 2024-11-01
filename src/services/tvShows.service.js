@@ -9,16 +9,3 @@ export const getTvShows = async () => {
   }
 };
 
-export const getTvShowsbyId = async (idVideoReq) => {
-  try {
-    const res = await axiosClient.get('/video/information', {
-      params: { idVideo: idVideoReq },
-    });
-    return res.data.data;
-  } catch (error) {
-    console.error(
-      'error =>',
-      error.response ? error.response.data : error.message
-    );
-  }
-};

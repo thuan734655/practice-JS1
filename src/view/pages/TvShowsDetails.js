@@ -1,13 +1,5 @@
 import header from '../layout/header';
-import loadImage from '../components/image';
 
-const imageStar = [
-  {
-    srcImg: 'https://s3.cloudfly.vn/practice-js/images/ic-star.svg',
-    alt: 'icon star',
-    caption: '8.1',
-  },
-];
 
 const TvShowsDetailsPage = () => {
   return `

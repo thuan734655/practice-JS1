@@ -1,9 +1,9 @@
-import { getTvShowsbyId } from '../services/tvShows.service';
+import { getInfoVideobyId } from '../services/videos.service';
 import loadBox from '../view/components/box';
 
 const srcStar = 'https://s3.cloudfly.vn/practice-js/images/ic-star.svg';
 const loader = async (idVideo) => {
-  const data = await getTvShowsbyId(idVideo);
+  const data = await getInfoVideobyId(idVideo);
   const {
     category,
     status,
@@ -24,7 +24,7 @@ const loader = async (idVideo) => {
   <figcaption>${star}</figcaption>`;
 
     document.querySelector('.top-container figure').innerHTML =
-      ` <img src="http://localhost:3000${background}" alt="backdroung">`;
+      ` <img src="http://localhost:3000${background}" alt="background">`;
 
     document.querySelector('.bottom-container--left figure').innerHTML =
       ` <img src="http://localhost:3000${avatar}" alt="avatar">`;
@@ -74,7 +74,6 @@ const render = (videos) => {
 };
 const getIdVideo = () => {
   const idVideo = localStorage.getItem('lastSelectedVideoId');
-  console.log(idVideo);
   return idVideo;
 };
 

@@ -34,3 +34,17 @@ export const addVideo = async (formData) => {
     console.log('Add new video fail => ' + err);
   }
 };
+
+export const getInfoVideobyId = async (idVideoReq) => {
+  try {
+    const res = await axiosClient.get('/video/information', {
+      params: { idVideo: idVideoReq },
+    });
+    return res.data.data;
+  } catch (error) {
+    console.error(
+      'error =>',
+      error.response ? error.response.data : error.message
+    );
+  }
+};

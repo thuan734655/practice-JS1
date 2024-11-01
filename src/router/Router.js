@@ -7,6 +7,8 @@ import TvShowsDetailsController from '../controller/tvshowsDetail.controller.js'
 import headerController from '../controller/header.controller.js';
 import addPage from '../view/pages/add.js';
 import addController from '../controller/add.controller.js';
+import updatePage from '../view/pages/update.js';
+import updateController from '../controller/update.controller.js';
 
 class Router {
   constructor() {
@@ -20,6 +22,7 @@ class Router {
         controller: TvShowsDetailsController,
       },
       { path: '/add', view: addPage(), controller: addController },
+      { path: '/update', view: updatePage(), controller: updateController },
     ];
   }
   // Get content of path
