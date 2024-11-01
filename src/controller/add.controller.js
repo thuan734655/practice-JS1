@@ -151,7 +151,10 @@ const handleMovieClick = () => {
       const router = new Router();
       router.navigateTo(`/tvshow/details`);
     };
-    btnEdit.onclick = () => console.log('Edit');
+    btnEdit.onclick = () => {
+      const router = new Router();
+      router.navigateTo(`/update`);
+    };
     btnDelete.onclick = () => handleDeleteVideo(videoId);
   };
 };

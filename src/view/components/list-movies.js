@@ -18,7 +18,7 @@ const list_movies = (list = []) => {
           </div>
          <div class="action-buttons" style="display: none;">
           <button class="btn-view">View Details</button>
-          <button class="btn-edit">Edit</button>
+          <button class="btn-edit">Update</button>
           <button class="btn-delete">Delete</button>
         </div>
         </div>
