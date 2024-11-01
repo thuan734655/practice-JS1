@@ -9,7 +9,7 @@ const listNav = [
 const listNavIcon = [
   {
     text: `<figure> <img src="${IcLogout}" alt="Logout"> <figcaption>Logout</figcaption> </figure>`,
-    href: '/home',
+    href: '/login',
   },
 ];
 

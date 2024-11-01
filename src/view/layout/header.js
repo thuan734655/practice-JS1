@@ -10,7 +10,7 @@ const listNav = [
 const listNavIcon = [
   {
     text: `<figure> ${icArrowRight()} <figcaption>Logout</figcaption> </figure>`,
-    href: '/home',
+    href: '/login',
   },
 ];
 

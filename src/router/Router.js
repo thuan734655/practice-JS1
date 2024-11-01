@@ -4,7 +4,7 @@ import homePage from '../view/pages/home.js';
 import homeController from '../controller/home.controller.js';
 import TvShowsDetailsPage from '../view/pages/TvShowsDetails.js';
 import TvShowsDetailsController from '../controller/tvshowsDetail.controller.js';
-import headerController from '../controller/header.controller.js';
+import { headerController } from '../controller/header.controller.js';
 import addPage from '../view/pages/add.js';
 import addController from '../controller/add.controller.js';
 import updatePage from '../view/pages/update.js';
