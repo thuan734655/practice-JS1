@@ -45,6 +45,7 @@ const changeToPageDetail = () => {
   const videosElement = document.querySelectorAll('.list-movies-container');
   videosElement.forEach((video) => {
     video.addEventListener('click', () => {
+      localStorage.setItem('lastSelectedVideoId', video.id);
       router.navigateTo(`/tvshow/details`);
     });
   });
