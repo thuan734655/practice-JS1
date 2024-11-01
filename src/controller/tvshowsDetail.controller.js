@@ -4,6 +4,7 @@ import loadBox from '../view/components/box';
 const srcStar = 'https://s3.cloudfly.vn/practice-js/images/ic-star.svg';
 const loader = async (idVideo) => {
   const data = await getInfoVideobyId(idVideo);
+  console.log(data);
   const {
     category,
     status,
