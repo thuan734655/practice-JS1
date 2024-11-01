@@ -2,6 +2,7 @@ import Router from '../router/Router.js';
 import { addVideo, getMyList } from '../services/videos.service.js';
 import formAdd from '../view/components/form-add.js';
 import listMovies from '../view/components/list-movies.js';
+import { handleDeleteVideo, setAllVideos } from './delete.controller.js';
 
 const videosPerPage = 8;
 let currentPage = 1;
@@ -11,6 +12,7 @@ let filteredVideos = []; // Store the filtered video list
 /** Fetch video list */
 const fetchVideoList = async () => {
   allVideos = await getMyList();
+  setAllVideos(allVideos); // Set allVideos in delete controller
   filteredVideos = []; // Reset filtered list
   renderPaginatedVideos(allVideos);
 };
@@ -28,14 +30,10 @@ const renderMovies = (movies) => {
 
 /** Render paginated videos */
 const renderPaginatedVideos = (videos) => {
-  const videoList = videos;
-  const totalVideos = videoList.length;
+  const totalVideos = videos.length;
   const totalPages = Math.ceil(totalVideos / videosPerPage);
   const startIndex = (currentPage - 1) * videosPerPage;
-  const paginatedVideos = videoList.slice(
-    startIndex,
-    startIndex + videosPerPage
-  );
+  const paginatedVideos = videos.slice(startIndex, startIndex + videosPerPage);
 
   renderMovies(paginatedVideos);
   updatePaginationControls(totalPages);
@@ -61,9 +59,7 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage > 1) {
           currentPage--;
-          renderPaginatedVideos(
-            filteredVideos.length ? filteredVideos : allVideos
-          );
+          renderPaginatedVideos(filteredVideos.length ? filteredVideos : allVideos);
         }
       },
       currentPage === 1
@@ -74,9 +70,7 @@ const updatePaginationControls = (totalPages) => {
     paginationContainer.appendChild(
       createButton(i, () => {
         currentPage = i;
-        renderPaginatedVideos(
-          filteredVideos.length ? filteredVideos : allVideos
-        );
+        renderPaginatedVideos(filteredVideos.length ? filteredVideos : allVideos);
       })
     );
   }
@@ -87,9 +81,7 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage < totalPages) {
           currentPage++;
-          renderPaginatedVideos(
-            filteredVideos.length ? filteredVideos : allVideos
-          );
+          renderPaginatedVideos(filteredVideos.length ? filteredVideos : allVideos);
         }
       },
       currentPage === totalPages
@@ -127,17 +119,16 @@ const handleMovieClick = () => {
     if (lastSelectedVideoId && lastSelectedVideoId !== video.id) {
       const lastSelectedVideo = document.getElementById(lastSelectedVideoId);
       if (lastSelectedVideo) {
-        lastSelectedVideo.querySelector('.action-buttons').style.display =
-          'none';
+        lastSelectedVideo.querySelector('.action-buttons').style.display = 'none';
       }
     }
 
     localStorage.setItem('lastSelectedVideoId', video.id);
     actionButtons.style.display = 'block';
-    attachButtonHandlers(actionButtons);
+    attachButtonHandlers(actionButtons, video.id); // Pass video id to handler
   };
 
-  const attachButtonHandlers = (actionButtons) => {
+  const attachButtonHandlers = (actionButtons, videoId) => {
     const btnView = actionButtons.querySelector('.btn-view');
     const btnEdit = actionButtons.querySelector('.btn-edit');
     const btnDelete = actionButtons.querySelector('.btn-delete');
@@ -147,7 +138,7 @@ const handleMovieClick = () => {
       router.navigateTo(`/tvshow/details`);
     };
     btnEdit.onclick = () => console.log('Edit');
-    btnDelete.onclick = () => console.log('Delete');
+    btnDelete.onclick = () => handleDeleteVideo(videoId); 
   };
 };
 
@@ -198,3 +189,4 @@ const addController = async () => {
 };
 
 export default addController;
+export {renderPaginatedVideos};
