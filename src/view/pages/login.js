@@ -9,14 +9,14 @@ import {
 const loginPage = () => {
   return `
    ${headerLogin()}
-   <section class ="section-main">
-    <div class = "section-main__left">
+   <section class ="section-main-login " id = "rootLogin">
+    <div class = "section-main-login__left">
       <div class = "left-box">
         <div class = "left-box--bgr"></div>
         <div class = "left-box--image"><img src="${IcSaly}" alt="icon human"></div>
       </div>
     </div>
-    <div class = "section-main__right">
+    <div class = "section-main-login__right">
      <div class = "right-box">
       <div class = "right-box--head"> <p>Login</p> </div>
       <div class = "right-box--body"> 
@@ -29,9 +29,10 @@ const loginPage = () => {
         <input class = "input-password" type="password" placeholder="Password">
         <img class = "icon-eye" src="${IcEye}" alt="icon eye">
       </div>
+       <button class="btn-login" type="submit">Login</button>
       </div>   
       <div class ="right-box--footer">
-        <button class="btn-login" type="button">Login</button>
+       <p>If you don't have an account yet, please <span>register</span>.</p>
       </div>   
      </div>
     </div>

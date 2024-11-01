@@ -1,9 +1,11 @@
+import loginPage from '../view/pages/login';
+import login from '../controller/login.controller.js';
+
 class Router {
   constructor() {
     this.routes = [
-      // { path: '/', view: loginPage(), controller: login },
-      // { path: '/login', view: loginPage(), controller: login },
-      // { path: '/home', view: homePage(), controller: homeController },
+      { path: '/', view: loginPage(), controller: login },
+      { path: '/login', view: loginPage(), controller: login },
     ];
   }
   // get content of path
