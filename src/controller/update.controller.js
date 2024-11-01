@@ -26,14 +26,14 @@ const loader = async (data) => {
   // Render images
   document.querySelector('.images--background').innerHTML = `
     <figure>
-      <img src="http://localhost:3000${infoVideo.background}" alt="background">
+      <img src="https://practice-js1.onrender.com${infoVideo.background}" alt="background">
       <figcaption>background</figcaption>
     </figure>
   `;
 
   document.querySelector('.images--avatar').innerHTML = `
     <figure>
-      <img src="http://localhost:3000${infoVideo.avatar}" alt="avatar">
+      <img src="https://practice-js1.onrender.com${infoVideo.avatar}" alt="avatar">
       <figcaption>avatar</figcaption>
     </figure>
   `;

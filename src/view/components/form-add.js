@@ -34,11 +34,11 @@ const form_add = () => {
                 </div>
                 <div class="form-group">
                     <label for="genres">Genres:</label>
-                    <input type="text" id="genres" name="genres" value = "Action & Adventure, Sci-Fi & Fantasy, Drama" maxlength="500" required  placeholder="Enter genres (comma separated)">
+                    <input type="text" id="genres" name="genres" maxlength="500" required  placeholder="Enter genres (comma separated)">
                 </div>
                 <div class="form-group">
                     <label for="status">Status:</label>
-                    <input type="text" id="status" name="status" maxlength="500" required value = "Returning Series" placeholder="Enter video status">
+                    <input type="text" id="status" name="status" maxlength="500" required  placeholder="Enter video status">
                 </div>
                 <div class="form-group">
                     <label for="lastAirDate">Last Air Date:</label>
