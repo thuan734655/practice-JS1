@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const configAxios = {
-  baseUrl: 'https://practice-js1.onrender.com',
+  baseUrl: 'https://practice-js-server.onrender.com
+
+',
   header: {
     'Content-Type': 'application/json',
   },

@@ -24,10 +24,14 @@ const loader = async (idVideo) => {
   <figcaption>${star}</figcaption>`;
 
     document.querySelector('.top-container figure').innerHTML =
-      ` <img src="https://practice-js1.onrender.com${background}" alt="background">`;
+      ` <img src="https://practice-js-server.onrender.com
+
+${background}" alt="background">`;
 
     document.querySelector('.bottom-container--left figure').innerHTML =
-      ` <img src="https://practice-js1.onrender.com${avatar}" alt="avatar">`;
+      ` <img src="https://practice-js-server.onrender.com
+
+${avatar}" alt="avatar">`;
   };
   // Helper function to format dates
   const formatDate = (date) => new Date(date).toLocaleDateString();
