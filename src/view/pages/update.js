@@ -1,5 +1,4 @@
 import footer from '../layout/footer';
-import header from '../layout/header';
 import headerLogin from '../layout/header-login';
 
 const updatePage = () => {

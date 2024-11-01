@@ -21,11 +21,11 @@ const form_update = (video) => {
                 </div>
                 <div class="form-group">
                     <label for="avatar">Avatar:</label>
-                    <input type="file" id="avatar" name="avatar" accept="image/*">
+                    <input type="file" id="avatar" name="avatar" value=${video.avatar} accept="image/*">
                 </div>
                 <div class="form-group">
                     <label for="background">Background:</label>
-                    <input type="file" id="background" name="background" accept="image/*">
+                    <input type="file" id="background" name="background" value=${video.background} accept="image/*">
                 </div>
                 <div class="form-group">
                     <label for="releaseDate">Release Date:</label>
