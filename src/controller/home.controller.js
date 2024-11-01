@@ -1,5 +1,5 @@
 import Router from '../router/Router.js';
-import { getMovies } from '../services/movie.services.js';
+import { getMovies } from '../services/movie.service.js';
 import { getTvShows } from '../services/tvShows.service.js';
 import { getVideos } from '../services/videos.service.js';
 import listMovies from '../view/components/list-movies.js';

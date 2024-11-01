@@ -30,13 +30,20 @@ const renderMovies = (movies) => {
 
 /** Render paginated videos */
 const renderPaginatedVideos = (videos) => {
-  const totalVideos = videos.length;
-  const totalPages = Math.ceil(totalVideos / videosPerPage);
-  const startIndex = (currentPage - 1) * videosPerPage;
-  const paginatedVideos = videos.slice(startIndex, startIndex + videosPerPage);
+  if (videos) {
+    const totalVideos = videos.length;
+    const totalPages = Math.ceil(totalVideos / videosPerPage);
+    const startIndex = (currentPage - 1) * videosPerPage;
+    const paginatedVideos = videos.slice(
+      startIndex,
+      startIndex + videosPerPage
+    );
 
-  renderMovies(paginatedVideos);
-  updatePaginationControls(totalPages);
+    renderMovies(paginatedVideos);
+    updatePaginationControls(totalPages);
+  } else {
+    alert("don't exist video");
+  }
 };
 
 /** Update pagination controls */
@@ -59,7 +66,9 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage > 1) {
           currentPage--;
-          renderPaginatedVideos(filteredVideos.length ? filteredVideos : allVideos);
+          renderPaginatedVideos(
+            filteredVideos.length ? filteredVideos : allVideos
+          );
         }
       },
       currentPage === 1
@@ -70,7 +79,9 @@ const updatePaginationControls = (totalPages) => {
     paginationContainer.appendChild(
       createButton(i, () => {
         currentPage = i;
-        renderPaginatedVideos(filteredVideos.length ? filteredVideos : allVideos);
+        renderPaginatedVideos(
+          filteredVideos.length ? filteredVideos : allVideos
+        );
       })
     );
   }
@@ -81,7 +92,9 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage < totalPages) {
           currentPage++;
-          renderPaginatedVideos(filteredVideos.length ? filteredVideos : allVideos);
+          renderPaginatedVideos(
+            filteredVideos.length ? filteredVideos : allVideos
+          );
         }
       },
       currentPage === totalPages
@@ -119,7 +132,8 @@ const handleMovieClick = () => {
     if (lastSelectedVideoId && lastSelectedVideoId !== video.id) {
       const lastSelectedVideo = document.getElementById(lastSelectedVideoId);
       if (lastSelectedVideo) {
-        lastSelectedVideo.querySelector('.action-buttons').style.display = 'none';
+        lastSelectedVideo.querySelector('.action-buttons').style.display =
+          'none';
       }
     }
 
@@ -138,7 +152,7 @@ const handleMovieClick = () => {
       router.navigateTo(`/tvshow/details`);
     };
     btnEdit.onclick = () => console.log('Edit');
-    btnDelete.onclick = () => handleDeleteVideo(videoId); 
+    btnDelete.onclick = () => handleDeleteVideo(videoId);
   };
 };
 
@@ -189,4 +203,4 @@ const addController = async () => {
 };
 
 export default addController;
-export {renderPaginatedVideos};
+export { renderPaginatedVideos };

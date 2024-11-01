@@ -74,6 +74,7 @@ const render = (videos) => {
 };
 const getIdVideo = () => {
   const idVideo = localStorage.getItem('lastSelectedVideoId');
+  console.log(idVideo);
   return idVideo;
 };
 
