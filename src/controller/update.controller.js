@@ -51,6 +51,7 @@ const render = async () => {
   const infoVideo = await getInfoVideobyId(idVideo);
   loader(infoVideo);
 };
+
 // Handle update form submission
 const handleSubmit = async () => {
   document
