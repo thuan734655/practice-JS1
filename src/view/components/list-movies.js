@@ -11,9 +11,7 @@ const list_movies = (list = []) => {
             </div>
           </div> <!-- end list-movies-container--head -->
           <div class="list-movies-container--body">
-            <img src="https://practice-js-server.onrender.com
-
-${data.avatar}" alt="avatar">
+            <img src="https://practice-js-server.onrender.com${data.avatar}" alt="avatar">
           </div>
           <div class="list-movies-container--footer">
             <p>${data.fullName}</p>
