@@ -64,8 +64,8 @@ class Router {
   static async navigateTo(path) {
     const { redirect, route } = this.loadPage(path);
     if (redirect) {
-      history.pushState(null, null, redirect);
-      this.renderPage(errorPage(), errorController);
+      history.pushState(null, null, '/error-404');
+      this.renderPage(errorPage('Go login'), errorController);
       setTimeout(() => {
         alert('You must log in');
       }, 200);

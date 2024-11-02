@@ -1,7 +1,7 @@
 import footer from '../layout/footer';
 import header from '../layout/header';
 import { IcError } from '../../resources/assets/icons/index.js';
-const errorPage = () => {
+const errorPage = (titleError = 'Go home') => {
   return `
     ${header()}
     <section class="error-page">
@@ -14,7 +14,7 @@ const errorPage = () => {
       <div class="error-page__container--body">
         <p class="body--title">Lost your way?</p>
         <p class="body--desc">Oops! This is awkward. You are looking for something that doesn't actually exist.</p>
-        <button class="body--button">Go home</button>
+        <button class="body--button">${titleError}</button>
       </div>
      </div>
     </section>

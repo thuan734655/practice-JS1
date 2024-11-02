@@ -1,14 +1,12 @@
-import getCookie from '../helper/getCookie';
 import Router from '../router/Router';
 
 const errorController = () => {
-  document.querySelector('.body--button').addEventListener('click', () => {
-    const idUser = getCookie('idUser');
-    if (idUser) {
-      Router.navigateTo('/home');
-    } else {
-      alert('You must log in');
+  const button = document.querySelector('.body--button');
+  button.addEventListener('click', (event) => {
+    if (button.textContent === 'Go login') {
       Router.navigateTo('/login');
+    } else {
+      Router.navigateTo('/home');
     }
   });
 };
