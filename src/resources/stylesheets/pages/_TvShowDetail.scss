@@ -7,7 +7,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.section-main {
+.section-main-tvshow {
   &__container {
     padding-top: pxToRem(40);
     @include flex($direction: column, $gap: pxToRem(152));

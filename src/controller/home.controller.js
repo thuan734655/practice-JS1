@@ -4,9 +4,9 @@ import { getTvShows } from '../services/tvShows.service.js';
 import { getVideos } from '../services/videos.service.js';
 import listMovies from '../view/components/list-movies.js';
 
-const videosPerPage = 8; // Number of videos to display per page
-let currentPage = 1; // Current page for pagination
-let allVideos = []; // Store all videos for filtering and pagination
+const videosPerPage = 8; // number of videos to display per page
+let currentPage = 1; // current page for pagination
+let allVideos = []; // store all videos for filtering and pagination
 const fetchVideosByCategory = async (category) => {
   const videoSources = {
     all: getVideos,
@@ -16,10 +16,10 @@ const fetchVideosByCategory = async (category) => {
 
   const videoList = await (videoSources[category] || videoSources['all'])();
 
-  // Determine the button label based on the category
+  // determine the button label based on the category
   let buttonLabel;
   if (category === 'tv-shows') {
-    buttonLabel = 'TV Shows'; // Custom label for TV Shows
+    buttonLabel = 'TV Shows'; // custom label for TV Shows
   } else {
     buttonLabel = category.charAt(0).toUpperCase() + category.slice(1); // Capitalize other categories
   }
@@ -56,7 +56,7 @@ const updateVideoCount = (title, count) => {
     quantityContainer.innerHTML = `${title} <span>(${count})</span>`;
 };
 
-// Function to filter videos based on the search term
+// function to filter videos based on the search term
 const filterMoviesBySearch = (searchTerm) =>
   allVideos.filter((video) =>
     video.fullName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -67,8 +67,8 @@ const setupSearchListener = () => {
   if (searchInput) {
     searchInput.addEventListener('input', (event) => {
       const filteredVideos = filterMoviesBySearch(event.target.value);
-      renderPaginatedMovies(filteredVideos); // Call this function with the filtered video list
-      updateVideoCount('Search Results', filteredVideos.length); // Update the count of videos found
+      renderPaginatedMovies(filteredVideos); 
+      updateVideoCount('Search Results', filteredVideos.length); // update the count of videos found
     });
   }
 };
@@ -87,7 +87,7 @@ const updatePaginationControls = (totalPages) => {
   const paginationContainer = document.querySelector('.pagination-controls');
   if (!paginationContainer) return;
 
-  paginationContainer.innerHTML = ''; // Clear existing controls
+  paginationContainer.innerHTML = ''; // clear existing controls
   const createButton = (text, onClick, disabled = false) => {
     const button = document.createElement('button');
     button.innerText = text;
@@ -147,8 +147,8 @@ const setupSubNavListeners = () => {
       const selectedCategory = event.target.id;
       const { videoList, count, buttonLabel } =
         await fetchVideosByCategory(selectedCategory);
-      allVideos = videoList; // Store all videos for filtering and pagination
-      currentPage = 1; // Reset to the first page
+      allVideos = videoList; // store all videos for filtering and pagination
+      currentPage = 1; // reset to the first page
       renderPaginatedMovies(allVideos);
       updateVideoCount(buttonLabel, count);
     });
@@ -161,7 +161,7 @@ const homeController = async () => {
     count,
     buttonLabel,
   } = await fetchVideosByCategory('all');
-  allVideos = fetchedVideos; // Store all videos for filtering and pagination
+  allVideos = fetchedVideos; // store all videos for filtering and pagination
   renderPaginatedMovies(allVideos);
   updateVideoCount(buttonLabel, count);
 

@@ -1,12 +1,11 @@
 import header from '../layout/header';
 
-
 const TvShowsDetailsPage = () => {
   return `
      ${header()}
-      <section class="section-main"  id= "rootApp"> 
-       <div class="section-main__container">
-        <div class="section-main__container--top">
+      <section class="section-main-tvshow"  id= "rootApp"> 
+       <div class="section-main-tvshow__container">
+        <div class="section-main-tvshow__container--top">
         <div class="top-container">
            <figure></figure>
          <div class="top-detail">
@@ -21,7 +20,7 @@ const TvShowsDetailsPage = () => {
          </div> <!-- end top-detail --> 
         </div>
         </div> <!-- end section-main__container--top --> 
-        <div class="section-main__container--bottom">
+        <div class="section-main-tvshow__container--bottom">
         <div class="bottom-container">
          <div class="bottom-container--left">
         <figure></figure>
@@ -35,7 +34,7 @@ const TvShowsDetailsPage = () => {
           <div class="right--body"></div>
          </div>
         </div>
-        </div><!-- end section-main__container--bottom -->
+        </div><!-- end section-main-tvshow__container--bottom -->
        </div> 
       </section>
     `;
