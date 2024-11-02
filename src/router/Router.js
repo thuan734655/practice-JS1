@@ -34,12 +34,17 @@ const routes = [
     view: dashboardPage(),
     controller: dashboardController,
   },
-  { path: '/movies', view: videoPage("Movies"), controller: movieController },
-  { path: '/tvshows', view: videoPage("TV Shows"), controller: movieController },
+  { path: '/movies', view: videoPage('Movies'), controller: movieController },
+  {
+    path: '/tvshows',
+    view: videoPage('TV Shows'),
+    controller: movieController,
+  },
 ];
 
 const checkAuthMiddleware = (path) => {
   const idUser = getCookie('idUser');
+  console.log(idUser);
   if (!idUser && path !== '/login' && path !== '/') {
     return '/login';
   }
