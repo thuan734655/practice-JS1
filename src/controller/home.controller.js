@@ -4,9 +4,15 @@ import { getTvShows } from '../services/tvShows.service.js';
 import { getVideos } from '../services/videos.service.js';
 import listMovies from '../view/components/list-movies.js';
 
-const videosPerPage = 8; // number of videos to display per page
-let currentPage = 1; // current page for pagination
-let allVideos = []; // store all videos for filtering and pagination
+const videosPerPage = 8; // Number of videos to display per page
+let currentPage = 1; // Current page for pagination
+let allVideos = []; // Stores all videos for filtering and pagination
+
+/**
+ * Fetch videos based on category selection
+ * @param {string} category - Category to filter videos by
+ * @returns {object} Video list, count, and button label for the selected category
+ */
 const fetchVideosByCategory = async (category) => {
   const videoSources = {
     all: getVideos,
@@ -16,13 +22,11 @@ const fetchVideosByCategory = async (category) => {
 
   const videoList = await (videoSources[category] || videoSources['all'])();
 
-  // determine the button label based on the category
-  let buttonLabel;
-  if (category === 'tv-shows') {
-    buttonLabel = 'TV Shows'; // custom label for TV Shows
-  } else {
-    buttonLabel = category.charAt(0).toUpperCase() + category.slice(1); // Capitalize other categories
-  }
+  // Determine the button label based on category
+  const buttonLabel =
+    category === 'tv-shows'
+      ? 'TV Shows'
+      : category.charAt(0).toUpperCase() + category.slice(1);
 
   return {
     videoList,
@@ -31,15 +35,24 @@ const fetchVideosByCategory = async (category) => {
   };
 };
 
+/**
+ * Render movie elements to the DOM
+ * @param {Array} movies - List of movies to render
+ */
 const renderMovies = (movies) => {
   const movieContainer = document.querySelector('.section-main--list-movies');
-  movieContainer.innerHTML = movieContainer
-    ? listMovies(movies)
-    : console.error('Failed to select the movie container');
+  if (movieContainer) {
+    movieContainer.innerHTML = listMovies(movies);
+  } else {
+    console.error('Failed to select the movie container');
+  }
 
   changeToPageDetail();
 };
 
+/**
+ * Set up click events on videos to navigate to detail page
+ */
 const changeToPageDetail = () => {
   const videosElement = document.querySelectorAll('.list-movies-container');
   videosElement.forEach((video) => {
@@ -50,29 +63,46 @@ const changeToPageDetail = () => {
   });
 };
 
+/**
+ * Update displayed video count based on category or search results
+ * @param {string} title - Title to display
+ * @param {number} count - Video count to display
+ */
 const updateVideoCount = (title, count) => {
   const quantityContainer = document.querySelector('.quantity-videos');
-  if (quantityContainer)
+  if (quantityContainer) {
     quantityContainer.innerHTML = `${title} <span>(${count})</span>`;
+  }
 };
 
-// function to filter videos based on the search term
+/**
+ * Filter movies based on the search term
+ * @param {string} searchTerm - Term to filter videos by
+ * @returns {Array} Filtered list of videos
+ */
 const filterMoviesBySearch = (searchTerm) =>
   allVideos.filter((video) =>
     video.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+/**
+ * Set up search input event to filter videos
+ */
 const setupSearchListener = () => {
   const searchInput = document.getElementById('searchInput');
   if (searchInput) {
     searchInput.addEventListener('input', (event) => {
       const filteredVideos = filterMoviesBySearch(event.target.value);
-      renderPaginatedMovies(filteredVideos); 
-      updateVideoCount('Search Results', filteredVideos.length); // update the count of videos found
+      renderPaginatedMovies(filteredVideos);
+      updateVideoCount('Search Results', filteredVideos.length);
     });
   }
 };
 
+/**
+ * Render videos with pagination based on the current page
+ * @param {Array} videos - List of videos to paginate
+ */
 const renderPaginatedMovies = (videos) => {
   const totalVideos = videos.length;
   const totalPages = Math.ceil(totalVideos / videosPerPage);
@@ -83,11 +113,17 @@ const renderPaginatedMovies = (videos) => {
   updatePaginationControls(totalPages);
 };
 
+/**
+ * Update pagination controls and add click events
+ * @param {number} totalPages - Total number of pages
+ */
 const updatePaginationControls = (totalPages) => {
   const paginationContainer = document.querySelector('.pagination-controls');
   if (!paginationContainer) return;
 
-  paginationContainer.innerHTML = ''; // clear existing controls
+  paginationContainer.innerHTML = ''; // Clear existing controls
+
+  // Helper to create pagination buttons
   const createButton = (text, onClick, disabled = false) => {
     const button = document.createElement('button');
     button.innerText = text;
@@ -96,6 +132,7 @@ const updatePaginationControls = (totalPages) => {
     return button;
   };
 
+  // Previous button
   paginationContainer.appendChild(
     createButton(
       'Previous',
@@ -109,19 +146,17 @@ const updatePaginationControls = (totalPages) => {
     )
   );
 
+  // Numbered page buttons
   for (let i = 1; i <= totalPages; i++) {
     paginationContainer.appendChild(
-      createButton(
-        i,
-        () => {
-          currentPage = i;
-          renderPaginatedMovies(allVideos);
-        },
-        false
-      )
+      createButton(i, () => {
+        currentPage = i;
+        renderPaginatedMovies(allVideos);
+      })
     );
   }
 
+  // Next button
   paginationContainer.appendChild(
     createButton(
       'Next',
@@ -136,6 +171,9 @@ const updatePaginationControls = (totalPages) => {
   );
 };
 
+/**
+ * Set up event listeners for sub-navigation buttons
+ */
 const setupSubNavListeners = () => {
   const navButtons = document.querySelectorAll('.subNav-container button');
 
@@ -147,21 +185,24 @@ const setupSubNavListeners = () => {
       const selectedCategory = event.target.id;
       const { videoList, count, buttonLabel } =
         await fetchVideosByCategory(selectedCategory);
-      allVideos = videoList; // store all videos for filtering and pagination
-      currentPage = 1; // reset to the first page
+      allVideos = videoList; // Store all videos for filtering and pagination
+      currentPage = 1; // Reset to the first page
       renderPaginatedMovies(allVideos);
       updateVideoCount(buttonLabel, count);
     });
   });
 };
 
+/**
+ * Main controller to initialize the page
+ */
 const homeController = async () => {
   const {
     videoList: fetchedVideos,
     count,
     buttonLabel,
   } = await fetchVideosByCategory('all');
-  allVideos = fetchedVideos; // store all videos for filtering and pagination
+  allVideos = fetchedVideos; // Store all videos for filtering and pagination
   renderPaginatedMovies(allVideos);
   updateVideoCount(buttonLabel, count);
 

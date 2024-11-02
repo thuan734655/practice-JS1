@@ -1,9 +1,9 @@
 import footer from '../layout/footer';
-import header from '../layout/header';
+import headerLogin from '../layout/header-login';
 
 const dashboardPage = () => {
   return `
-    ${header()}
+    ${headerLogin()}
     <section class="section-main-dashboard">
      <div class="section-main-dashboard__container">
       <div class="section-main-dashboard__container--welcome">

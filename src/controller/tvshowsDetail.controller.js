@@ -30,10 +30,9 @@ const loader = async (idVideo) => {
     document.querySelector('.bottom-container--left figure').innerHTML =
       ` <img src="https://practice-js-server.onrender.com${avatar}" alt="avatar">`;
   };
-  // Helper function to format dates
+
   const formatDate = (date) => new Date(date).toLocaleDateString();
 
-  // Build the dataBottomBody array using the destructured values
   const dataBottomBody = [
     { className: 'body-box type', title: 'Type', value: category },
     { className: 'body-box status', title: 'Status', value: status },

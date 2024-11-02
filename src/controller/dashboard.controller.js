@@ -2,8 +2,10 @@ import Router from '../router/Router';
 import { getVideos } from '../services/videos.service';
 import loadBox from '../view/components/box';
 
+/** Load video data and count categories */
 const loader = async () => {
   const videos = await getVideos();
+  // Count movies and TV shows based on category
   return videos.reduce(
     (counts, element) => {
       if (element.category === 'Movie') counts.movieCount++;
@@ -14,6 +16,7 @@ const loader = async () => {
   );
 };
 
+/** Render data boxes on the dashboard */
 const render = (dataLoad) => {
   const dataBox = [
     {
@@ -29,22 +32,25 @@ const render = (dataLoad) => {
     {
       className: 'body--suggestions welcome-body-box',
       value: 'Suggestions',
-      title: 7,
+      title: 7, // Static count for Suggestions
     },
     {
       className: 'body--Manual-suggestions welcome-body-box',
       value: 'Manual Suggestions',
-      title: 3,
+      title: 3, // Static count for Manual Suggestions
     },
   ];
+  // Render the boxes into the welcome body section
   const html = loadBox(dataBox);
   document.querySelector('.welcome--body').innerHTML = html;
 };
 
+/** Attach event listeners to Quick Links buttons */
 const handleLink = () => {
   const link = document.querySelectorAll('.Quick-links--body button');
   link.forEach((element) => {
     element.addEventListener('click', () => {
+      // Navigate to route based on button id
       Router.navigateTo(`/${element.id}`);
     });
   });

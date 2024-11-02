@@ -7,17 +7,28 @@ import { handleDeleteVideo, setAllVideos } from './delete.controller.js';
 const videosPerPage = 8;
 let currentPage = 1;
 let allVideos = [];
-let filteredVideos = []; // Store the filtered video list
+let displayedVideos = [];
 
 /** Fetch video list */
 const fetchVideoList = async () => {
   allVideos = await getMyList();
-  setAllVideos(allVideos); // Set allVideos in delete controller
-  filteredVideos = []; // Reset filtered list
-  renderPaginatedVideos(allVideos);
+  setAllVideos(allVideos);
+  displayedVideos = allVideos;
+  renderPaginatedVideos();
 };
 
-/** Render video list */
+/** Render paginated videos */
+const renderPaginatedVideos = () => {
+  const totalVideos = displayedVideos.length;
+  const totalPages = Math.ceil(totalVideos / videosPerPage);
+  const startIndex = (currentPage - 1) * videosPerPage;
+  const paginatedVideos = displayedVideos.slice(startIndex, startIndex + videosPerPage);
+
+  renderMovies(paginatedVideos);
+  updatePaginationControls(totalPages);
+};
+
+/** Render movie list */
 const renderMovies = (movies) => {
   const movieContainer = document.querySelector('.section-main--list-movies');
   if (movieContainer) {
@@ -25,24 +36,6 @@ const renderMovies = (movies) => {
     handleMovieClick();
   } else {
     console.error('Failed to find movie container');
-  }
-};
-
-/** Render paginated videos */
-const renderPaginatedVideos = (videos) => {
-  if (videos) {
-    const totalVideos = videos.length;
-    const totalPages = Math.ceil(totalVideos / videosPerPage);
-    const startIndex = (currentPage - 1) * videosPerPage;
-    const paginatedVideos = videos.slice(
-      startIndex,
-      startIndex + videosPerPage
-    );
-
-    renderMovies(paginatedVideos);
-    updatePaginationControls(totalPages);
-  } else {
-    alert("don't exist video");
   }
 };
 
@@ -66,9 +59,7 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage > 1) {
           currentPage--;
-          renderPaginatedVideos(
-            filteredVideos.length ? filteredVideos : allVideos
-          );
+          renderPaginatedVideos();
         }
       },
       currentPage === 1
@@ -79,9 +70,7 @@ const updatePaginationControls = (totalPages) => {
     paginationContainer.appendChild(
       createButton(i, () => {
         currentPage = i;
-        renderPaginatedVideos(
-          filteredVideos.length ? filteredVideos : allVideos
-        );
+        renderPaginatedVideos();
       })
     );
   }
@@ -92,9 +81,7 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage < totalPages) {
           currentPage++;
-          renderPaginatedVideos(
-            filteredVideos.length ? filteredVideos : allVideos
-          );
+          renderPaginatedVideos();
         }
       },
       currentPage === totalPages
@@ -108,53 +95,50 @@ const handleSearchInput = () => {
   if (searchInput) {
     searchInput.addEventListener('input', (event) => {
       const searchTerm = event.target.value.trim().toLowerCase();
-      filteredVideos = allVideos.filter((video) =>
+      displayedVideos = allVideos.filter((video) =>
         video.fullName.toLowerCase().includes(searchTerm)
       );
       currentPage = 1; // Reset current page on search
-      renderPaginatedVideos(filteredVideos);
+      renderPaginatedVideos();
     });
   }
 };
 
 /** Handle movie click event */
 const handleMovieClick = () => {
-  const videoElements = document.querySelectorAll('.list-movies-container');
-
-  videoElements.forEach((video) => {
+  document.querySelectorAll('.list-movies-container').forEach((video) => {
     video.addEventListener('click', () => toggleActionButtons(video));
   });
+};
 
-  const toggleActionButtons = (video) => {
-    const actionButtons = video.querySelector('.action-buttons');
+const toggleActionButtons = (video) => {
+  const actionButtons = video.querySelector('.action-buttons');
+  const lastSelectedVideoId = localStorage.getItem('lastSelectedVideoId');
 
-    const lastSelectedVideoId = localStorage.getItem('lastSelectedVideoId');
-    if (lastSelectedVideoId && lastSelectedVideoId !== video.id) {
-      const lastSelectedVideo = document.getElementById(lastSelectedVideoId);
-      if (lastSelectedVideo) {
-        lastSelectedVideo.querySelector('.action-buttons').style.display =
-          'none';
-      }
+  if (lastSelectedVideoId && lastSelectedVideoId !== video.id) {
+    const lastSelectedVideo = document.getElementById(lastSelectedVideoId);
+    if (lastSelectedVideo) {
+      lastSelectedVideo.querySelector('.action-buttons').style.display = 'none';
     }
+  }
 
-    localStorage.setItem('lastSelectedVideoId', video.id);
-    actionButtons.style.display = 'block';
-    attachButtonHandlers(actionButtons, video.id); // Pass video id to handler
+  localStorage.setItem('lastSelectedVideoId', video.id);
+  actionButtons.style.display = 'block';
+  attachButtonHandlers(actionButtons, video.id);
+};
+
+const attachButtonHandlers = (actionButtons, videoId) => {
+  const btnView = actionButtons.querySelector('.btn-view');
+  const btnEdit = actionButtons.querySelector('.btn-edit');
+  const btnDelete = actionButtons.querySelector('.btn-delete');
+
+  btnView.onclick = () => {
+    Router.navigateTo(`/tvshow/details`);
   };
-
-  const attachButtonHandlers = (actionButtons, videoId) => {
-    const btnView = actionButtons.querySelector('.btn-view');
-    const btnEdit = actionButtons.querySelector('.btn-edit');
-    const btnDelete = actionButtons.querySelector('.btn-delete');
-
-    btnView.onclick = () => {
-      Router.navigateTo(`/tvshow/details`);
-    };
-    btnEdit.onclick = () => {
-      Router.navigateTo(`/update`);
-    };
-    btnDelete.onclick = () => handleDeleteVideo(videoId);
+  btnEdit.onclick = () => {
+    Router.navigateTo(`/update`);
   };
+  btnDelete.onclick = () => handleDeleteVideo(videoId);
 };
 
 /** Display add video form */
@@ -186,8 +170,8 @@ const handleAddNewVideo = async (event) => {
       document.querySelector('.form-add').innerHTML = '';
 
       allVideos = await getMyList();
-      filteredVideos = []; // Reset filtered list
-      renderPaginatedVideos(allVideos);
+      displayedVideos = allVideos;
+      renderPaginatedVideos();
     } else {
       alert('Add new item failed');
     }
