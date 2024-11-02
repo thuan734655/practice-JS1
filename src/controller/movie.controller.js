@@ -127,7 +127,7 @@ const handleLink = () => {
     });
 };
 
-const movieController = async () => {
+const videoController = async () => {
   const fetchedVideos = await fetchVideosByCategory();
   const allVideos = fetchedVideos;
   console.log(allVideos);
@@ -139,4 +139,4 @@ const movieController = async () => {
   handleLink();
 };
 
-export default movieController;
+export default videoController;

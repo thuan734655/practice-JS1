@@ -1,13 +1,13 @@
 import header from '../layout/header';
 import footer from '../layout/footer';
 
-const moviePage = () => {
+const videoPage = (title = 'Movies') => {
   return `
     ${header()}
     <section class="section-main" id="rootApp">
       <div class="section-main--title">
         <p>MaileHereko</p>
-        <h3>Movies</h3>
+        <h3>${title}</h3>
       </div> <!-- end section-main--title -->
       <div class="section-main--search">
         <div class="search-container">
@@ -23,4 +23,4 @@ const moviePage = () => {
   `;
 };
 
-export default moviePage;
+export default videoPage;
