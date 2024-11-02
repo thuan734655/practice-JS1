@@ -53,10 +53,10 @@ const checkAuthMiddleware = (path) => {
 
 class Router {
   static loadPage(path) {
-    const redirectPath = checkAuthMiddleware(path);
-    if (redirectPath) {
-      return { redirect: redirectPath };
-    }
+    // const redirectPath = checkAuthMiddleware(path);
+    // if (redirectPath) {
+    //   return { redirect: redirectPath };
+    // }
 
     const route = routes.find((route) => route.path === path);
     return route ? { route } : { route: null };
