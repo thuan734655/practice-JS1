@@ -7,60 +7,52 @@ import { handleDeleteVideo, setAllVideos } from './delete.controller.js';
 const videosPerPage = 8;
 let currentPage = 1;
 let allVideos = [];
-let displayedVideos = [];
+let filteredVideos = []; // Store the filtered video list
 
 /** Fetch video list */
 const fetchVideoList = async () => {
-  const idUser = localStorage.getItem('idUser');
-
-  if (!idUser) {
-    console.error('User ID not found in local storage.');
-    return;
-  }
-
   try {
+    const idUser = localStorage.getItem('idUser');
     allVideos = await getMyList(idUser);
     if (!allVideos) {
       console.error('Failed to fetch video list.');
+      allVideos = [];
       return;
     }
-    setAllVideos(allVideos);
-    displayedVideos = allVideos;
-    renderPaginatedVideos();
+    setAllVideos(allVideos); // Set allVideos in delete controller
+    filteredVideos = []; // Reset filtered list
+    renderPaginatedVideos(allVideos);
   } catch (error) {
     console.error('Error fetching video list:', error);
+    allVideos = [];
+  }
+};
+
+/** Render video list */
+const renderMovies = (movies) => {
+  const movieContainer = document.querySelector('.section-main--list-movies');
+  if (movieContainer) {
+    movieContainer.innerHTML = listMovies(movies);
+    handleMovieClick();
+  } else {
+    console.error('Failed to find movie container');
   }
 };
 
 /** Render paginated videos */
 const renderPaginatedVideos = (videos) => {
-  if (!displayedVideos.length) {
-    console.warn('No videos to display.');
+  if (!videos || videos.length === 0) {
+    alert("Don't exist video");
     return;
   }
 
-  const totalVideos = displayedVideos.length;
+  const totalVideos = videos.length;
   const totalPages = Math.ceil(totalVideos / videosPerPage);
   const startIndex = (currentPage - 1) * videosPerPage;
-  const paginatedVideos = displayedVideos.slice(
-    startIndex,
-    startIndex + videosPerPage
-  );
+  const paginatedVideos = videos.slice(startIndex, startIndex + videosPerPage);
 
   renderMovies(paginatedVideos);
   updatePaginationControls(totalPages);
-};
-
-/** Render movie list */
-const renderMovies = (movies) => {
-  const movieContainer = document.querySelector('.section-main--list-movies');
-  if (!movieContainer) {
-    console.error('Failed to find movie container');
-    return;
-  }
-  console.log(movies);
-  movieContainer.innerHTML = listMovies(movies);
-  handleMovieClick();
 };
 
 /** Update pagination controls */
@@ -86,7 +78,9 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage > 1) {
           currentPage--;
-          renderPaginatedVideos();
+          renderPaginatedVideos(
+            filteredVideos.length ? filteredVideos : allVideos
+          );
         }
       },
       currentPage === 1
@@ -97,7 +91,9 @@ const updatePaginationControls = (totalPages) => {
     paginationContainer.appendChild(
       createButton(i, () => {
         currentPage = i;
-        renderPaginatedVideos();
+        renderPaginatedVideos(
+          filteredVideos.length ? filteredVideos : allVideos
+        );
       })
     );
   }
@@ -108,7 +104,9 @@ const updatePaginationControls = (totalPages) => {
       () => {
         if (currentPage < totalPages) {
           currentPage++;
-          renderPaginatedVideos();
+          renderPaginatedVideos(
+            filteredVideos.length ? filteredVideos : allVideos
+          );
         }
       },
       currentPage === totalPages
@@ -126,56 +124,68 @@ const handleSearchInput = () => {
 
   searchInput.addEventListener('input', (event) => {
     const searchTerm = event.target.value.trim().toLowerCase();
-    displayedVideos = allVideos.filter((video) =>
+    filteredVideos = allVideos.filter((video) =>
       video.fullName.toLowerCase().includes(searchTerm)
     );
     currentPage = 1; // Reset current page on search
-    renderPaginatedVideos();
+    renderPaginatedVideos(filteredVideos);
   });
 };
 
 /** Handle movie click event */
 const handleMovieClick = () => {
-  const movieElements = document.querySelectorAll('.list-movies-container');
-  if (!movieElements.length) {
+  const videoElements = document.querySelectorAll('.list-movies-container');
+  if (videoElements.length === 0) {
     console.warn('No movie elements found to attach click handlers.');
     return;
   }
 
-  movieElements.forEach((video) => {
+  videoElements.forEach((video) => {
     video.addEventListener('click', () => toggleActionButtons(video));
   });
-};
 
-const toggleActionButtons = (video) => {
-  const actionButtons = video.querySelector('.action-buttons');
-  if (!actionButtons) {
-    console.warn('Action buttons container not found');
-    return;
-  }
-
-  const lastSelectedVideoId = localStorage.getItem('lastSelectedVideoId');
-  if (lastSelectedVideoId && lastSelectedVideoId !== video.id) {
-    const lastSelectedVideo = document.getElementById(lastSelectedVideoId);
-    if (lastSelectedVideo) {
-      const lastButtons = lastSelectedVideo.querySelector('.action-buttons');
-      if (lastButtons) lastButtons.style.display = 'none';
+  const toggleActionButtons = (video) => {
+    const actionButtons = video.querySelector('.action-buttons');
+    if (!actionButtons) {
+      console.warn('Action buttons container not found');
+      return;
     }
-  }
 
-  localStorage.setItem('lastSelectedVideoId', video.id);
-  actionButtons.style.display = 'block';
-  attachButtonHandlers(actionButtons, video.id);
-};
+    const lastSelectedVideoId = localStorage.getItem('lastSelectedVideoId');
+    if (lastSelectedVideoId && lastSelectedVideoId !== video.id) {
+      const lastSelectedVideo = document.getElementById(lastSelectedVideoId);
+      if (lastSelectedVideo) {
+        const lastButtons = lastSelectedVideo.querySelector('.action-buttons');
+        if (lastButtons) lastButtons.style.display = 'none';
+      }
+    }
 
-const attachButtonHandlers = (actionButtons, videoId) => {
-  const btnView = actionButtons.querySelector('.btn-view');
-  const btnEdit = actionButtons.querySelector('.btn-edit');
-  const btnDelete = actionButtons.querySelector('.btn-delete');
+    localStorage.setItem('lastSelectedVideoId', video.id);
+    actionButtons.style.display = 'block';
+    attachButtonHandlers(actionButtons, video.id);
+  };
 
-  if (btnView) btnView.onclick = () => Router.navigateTo(`/tvshow/details`);
-  if (btnEdit) btnEdit.onclick = () => Router.navigateTo(`/update`);
-  if (btnDelete) btnDelete.onclick = () => handleDeleteVideo(videoId);
+  const attachButtonHandlers = (actionButtons, videoId) => {
+    const btnView = actionButtons.querySelector('.btn-view');
+    const btnEdit = actionButtons.querySelector('.btn-edit');
+    const btnDelete = actionButtons.querySelector('.btn-delete');
+
+    if (btnView) {
+      btnView.onclick = () => {
+        Router.navigateTo(`/tvshow/details`);
+      };
+    }
+
+    if (btnEdit) {
+      btnEdit.onclick = () => {
+        Router.navigateTo(`/update`);
+      };
+    }
+
+    if (btnDelete) {
+      btnDelete.onclick = () => handleDeleteVideo(videoId);
+    }
+  };
 };
 
 /** Display add video form */
@@ -195,6 +205,8 @@ const handleAddFormDisplay = () => {
       cancelButton.addEventListener('click', () => {
         formAddElement.innerHTML = '';
       });
+    } else {
+      console.warn('Cancel button not found in form-add');
     }
 
     const form = document.querySelector('#add-feature-form');
@@ -219,11 +231,9 @@ const handleAddNewVideo = async (event) => {
       document.querySelector('.form-add').innerHTML = '';
 
       const idUser = localStorage.getItem('idUser');
-      if (idUser) {
-        allVideos = await getMyList(idUser);
-        displayedVideos = allVideos;
-        renderPaginatedVideos();
-      }
+      allVideos = await getMyList(idUser);
+      filteredVideos = []; // Reset filtered list
+      renderPaginatedVideos(allVideos);
     } else {
       alert('Add new item failed');
     }
