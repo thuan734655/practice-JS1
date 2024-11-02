@@ -11,18 +11,41 @@ let displayedVideos = [];
 
 /** Fetch video list */
 const fetchVideoList = async () => {
-  allVideos = await getMyList();
-  setAllVideos(allVideos);
-  displayedVideos = allVideos;
-  renderPaginatedVideos();
+  const idUser = localStorage.getItem('idUser');
+
+  if (!idUser) {
+    console.error('User ID not found in local storage.');
+    return;
+  }
+
+  try {
+    allVideos = await getMyList(idUser);
+    if (!allVideos) {
+      console.error('Failed to fetch video list.');
+      return;
+    }
+    setAllVideos(allVideos);
+    displayedVideos = allVideos;
+    renderPaginatedVideos();
+  } catch (error) {
+    console.error('Error fetching video list:', error);
+  }
 };
 
 /** Render paginated videos */
-const renderPaginatedVideos = () => {
+const renderPaginatedVideos = (videos) => {
+  if (!displayedVideos.length) {
+    console.warn('No videos to display.');
+    return;
+  }
+
   const totalVideos = displayedVideos.length;
   const totalPages = Math.ceil(totalVideos / videosPerPage);
   const startIndex = (currentPage - 1) * videosPerPage;
-  const paginatedVideos = displayedVideos.slice(startIndex, startIndex + videosPerPage);
+  const paginatedVideos = displayedVideos.slice(
+    startIndex,
+    startIndex + videosPerPage
+  );
 
   renderMovies(paginatedVideos);
   updatePaginationControls(totalPages);
@@ -31,18 +54,22 @@ const renderPaginatedVideos = () => {
 /** Render movie list */
 const renderMovies = (movies) => {
   const movieContainer = document.querySelector('.section-main--list-movies');
-  if (movieContainer) {
-    movieContainer.innerHTML = listMovies(movies);
-    handleMovieClick();
-  } else {
+  if (!movieContainer) {
     console.error('Failed to find movie container');
+    return;
   }
+  console.log(movies);
+  movieContainer.innerHTML = listMovies(movies);
+  handleMovieClick();
 };
 
 /** Update pagination controls */
 const updatePaginationControls = (totalPages) => {
   const paginationContainer = document.querySelector('.pagination-controls');
-  if (!paginationContainer) return;
+  if (!paginationContainer) {
+    console.error('Pagination container not found');
+    return;
+  }
 
   paginationContainer.innerHTML = '';
   const createButton = (text, onClick, disabled = false) => {
@@ -92,33 +119,47 @@ const updatePaginationControls = (totalPages) => {
 /** Handle search input */
 const handleSearchInput = () => {
   const searchInput = document.getElementById('searchInput');
-  if (searchInput) {
-    searchInput.addEventListener('input', (event) => {
-      const searchTerm = event.target.value.trim().toLowerCase();
-      displayedVideos = allVideos.filter((video) =>
-        video.fullName.toLowerCase().includes(searchTerm)
-      );
-      currentPage = 1; // Reset current page on search
-      renderPaginatedVideos();
-    });
+  if (!searchInput) {
+    console.error('Search input field not found');
+    return;
   }
+
+  searchInput.addEventListener('input', (event) => {
+    const searchTerm = event.target.value.trim().toLowerCase();
+    displayedVideos = allVideos.filter((video) =>
+      video.fullName.toLowerCase().includes(searchTerm)
+    );
+    currentPage = 1; // Reset current page on search
+    renderPaginatedVideos();
+  });
 };
 
 /** Handle movie click event */
 const handleMovieClick = () => {
-  document.querySelectorAll('.list-movies-container').forEach((video) => {
+  const movieElements = document.querySelectorAll('.list-movies-container');
+  if (!movieElements.length) {
+    console.warn('No movie elements found to attach click handlers.');
+    return;
+  }
+
+  movieElements.forEach((video) => {
     video.addEventListener('click', () => toggleActionButtons(video));
   });
 };
 
 const toggleActionButtons = (video) => {
   const actionButtons = video.querySelector('.action-buttons');
-  const lastSelectedVideoId = localStorage.getItem('lastSelectedVideoId');
+  if (!actionButtons) {
+    console.warn('Action buttons container not found');
+    return;
+  }
 
+  const lastSelectedVideoId = localStorage.getItem('lastSelectedVideoId');
   if (lastSelectedVideoId && lastSelectedVideoId !== video.id) {
     const lastSelectedVideo = document.getElementById(lastSelectedVideoId);
     if (lastSelectedVideo) {
-      lastSelectedVideo.querySelector('.action-buttons').style.display = 'none';
+      const lastButtons = lastSelectedVideo.querySelector('.action-buttons');
+      if (lastButtons) lastButtons.style.display = 'none';
     }
   }
 
@@ -132,28 +173,36 @@ const attachButtonHandlers = (actionButtons, videoId) => {
   const btnEdit = actionButtons.querySelector('.btn-edit');
   const btnDelete = actionButtons.querySelector('.btn-delete');
 
-  btnView.onclick = () => {
-    Router.navigateTo(`/tvshow/details`);
-  };
-  btnEdit.onclick = () => {
-    Router.navigateTo(`/update`);
-  };
-  btnDelete.onclick = () => handleDeleteVideo(videoId);
+  if (btnView) btnView.onclick = () => Router.navigateTo(`/tvshow/details`);
+  if (btnEdit) btnEdit.onclick = () => Router.navigateTo(`/update`);
+  if (btnDelete) btnDelete.onclick = () => handleDeleteVideo(videoId);
 };
 
 /** Display add video form */
 const handleAddFormDisplay = () => {
   const formAddElement = document.querySelector('.form-add');
-  document.querySelector('#add-new-item').addEventListener('click', () => {
+  const addButton = document.querySelector('#add-new-item');
+  if (!formAddElement || !addButton) {
+    console.error('Add video form or button not found');
+    return;
+  }
+
+  addButton.addEventListener('click', () => {
     formAddElement.innerHTML = formAdd();
 
-    document.querySelector('.btn-cancel').addEventListener('click', () => {
-      formAddElement.innerHTML = '';
-    });
+    const cancelButton = document.querySelector('.btn-cancel');
+    if (cancelButton) {
+      cancelButton.addEventListener('click', () => {
+        formAddElement.innerHTML = '';
+      });
+    }
 
-    document
-      .querySelector('#add-feature-form')
-      .addEventListener('submit', handleAddNewVideo);
+    const form = document.querySelector('#add-feature-form');
+    if (form) {
+      form.addEventListener('submit', handleAddNewVideo);
+    } else {
+      console.error('Add video form not found');
+    }
   });
 };
 
@@ -165,13 +214,16 @@ const handleAddNewVideo = async (event) => {
 
   try {
     const result = await addVideo(formData);
-    if (result.success) {
+    if (result && result.success) {
       alert('Add new item successful');
       document.querySelector('.form-add').innerHTML = '';
 
-      allVideos = await getMyList();
-      displayedVideos = allVideos;
-      renderPaginatedVideos();
+      const idUser = localStorage.getItem('idUser');
+      if (idUser) {
+        allVideos = await getMyList(idUser);
+        displayedVideos = allVideos;
+        renderPaginatedVideos();
+      }
     } else {
       alert('Add new item failed');
     }
@@ -182,9 +234,13 @@ const handleAddNewVideo = async (event) => {
 
 /** Initialize controller */
 const addController = async () => {
-  await fetchVideoList();
-  handleSearchInput();
-  handleAddFormDisplay();
+  try {
+    await fetchVideoList();
+    handleSearchInput();
+    handleAddFormDisplay();
+  } catch (error) {
+    console.error('Error initializing controller:', error);
+  }
 };
 
 export default addController;

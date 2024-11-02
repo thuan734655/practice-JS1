@@ -1,8 +1,8 @@
-import headerLogin from '../layout/header-login';
+import header from '../layout/header';
 
 const addPage = () => {
   return `
-    ${headerLogin()}
+    ${header()}
     <section class="section-main" id="rootApp">
       <div class="section-main--title">
         <h3>Add new item</h3>

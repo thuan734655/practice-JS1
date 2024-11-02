@@ -9,18 +9,21 @@ export const getVideos = async () => {
   }
 };
 
-export const getMyList = async () => {
+export const getMyList = async (idUser) => {
   try {
     const res = await axiosClient.get('/videos/mylist', {
+      params: { idUser }, 
       withCredentials: true,
     });
     return res.data.data;
   } catch (error) {
-    console.error('error => ' + error);
+    console.error('Error fetching my list:', error);
+    throw error; // Re-throw the error so it can be handled by the caller if needed
   }
 };
 
 export const addVideo = async (formData) => {
+  console.log(formData)
   try {
     const res = await axiosClient.post('/add', formData, {
       headers: {

@@ -9,7 +9,10 @@ let allVideos = []; // Stores the complete list of videos
  */
 export const handleDeleteVideo = async (videoId) => {
   const numVideoId = Number(videoId);
-  const videoToDelete = allVideos.find((video) => video.idVideo === numVideoId);
+  const videoToDelete = allVideos.find((video) => {
+    return video.idVideo === numVideoId;
+  });
+  console.log(videoToDelete);
 
   if (!videoToDelete) {
     console.error('Video not found:', numVideoId);
@@ -17,7 +20,9 @@ export const handleDeleteVideo = async (videoId) => {
   }
 
   // Remove the video from the list and update the view
-  allVideos = allVideos.filter((video) => video.idVideo !== numVideoId);
+  allVideos = allVideos.filter((video) => {
+    return video.idVideo !== numVideoId;
+  });
   renderPaginatedVideos(allVideos);
 
   try {

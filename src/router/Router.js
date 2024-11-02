@@ -13,7 +13,6 @@ import errorPage from '../view/pages/errorPage.js';
 import errorController from '../controller/error.controller.js';
 import dashboardPage from '../view/pages/dashboard.js';
 import dashboardController from '../controller/dashboard.controller.js';
-import getCookie from '../helper/getCookie.js';
 import movieController from '../controller/movie.controller.js';
 import videoPage from '../view/pages/video.js';
 
