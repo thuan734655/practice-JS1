@@ -14,6 +14,8 @@ import errorController from '../controller/error.controller.js';
 import dashboardPage from '../view/pages/dashboard.js';
 import dashboardController from '../controller/dashboard.controller.js';
 import getCookie from '../helper/getCookie.js';
+import moviePage from '../view/pages/movie.js';
+import movieController from '../controller/movie.controller.js';
 
 const routes = [
   { path: '/', view: loginPage(), controller: login },
@@ -32,6 +34,7 @@ const routes = [
     view: dashboardPage(),
     controller: dashboardController,
   },
+  { path: '/movies', view: moviePage(), controller: movieController },
 ];
 
 const checkAuthMiddleware = (path) => {

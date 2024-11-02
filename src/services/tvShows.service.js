@@ -8,4 +8,3 @@ export const getTvShows = async () => {
     console.error('error => ' + error);
   }
 };
-
