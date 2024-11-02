@@ -7,6 +7,7 @@ const handleLogin = async (email, password) => {
     const res = await axiosClient.post('/login', reqBody, {
       withCredentials: true,
     });
+    console.log(res);
     const { success, message } = res;
     if (success) {
       Router.navigateTo('/home');
