@@ -11,64 +11,77 @@ import updatePage from '../view/pages/update.js';
 import updateController from '../controller/update.controller.js';
 import errorPage from '../view/pages/errorPage.js';
 import errorController from '../controller/error.controller.js';
-  
-class Router {
-  constructor() {
-    this.routes = [
-      { path: '/', view: loginPage(), controller: login },
-      { path: '/login', view: loginPage(), controller: login },
-      { path: '/home', view: homePage(), controller: homeController },
-      {
-        path: '/tvshow/details',
-        view: TvShowsDetailsPage(),
-        controller: TvShowsDetailsController,
-      },
-      { path: '/add', view: addPage(), controller: addController },
-      { path: '/update', view: updatePage(), controller: updateController },
-      { path: '/error-404', view: errorPage(), controller: errorController },
-    ];
+import dashboardPage from '../view/pages/dashboard.js';
+import dashboardController from '../controller/dashboard.controller.js';
+import getCookie from '../helper/getCookie.js';
+
+const routes = [
+  { path: '/', view: loginPage(), controller: login },
+  { path: '/login', view: loginPage(), controller: login },
+  { path: '/home', view: homePage(), controller: homeController },
+  {
+    path: '/tvshow/details',
+    view: TvShowsDetailsPage(),
+    controller: TvShowsDetailsController,
+  },
+  { path: '/add', view: addPage(), controller: addController },
+  { path: '/update', view: updatePage(), controller: updateController },
+  { path: '/error-404', view: errorPage(), controller: errorController },
+  {
+    path: '/dashboard',
+    view: dashboardPage(),
+    controller: dashboardController,
+  },
+];
+
+const checkAuthMiddleware = (path) => {
+  const idUser = getCookie('idUser');
+  if (!idUser && path !== '/login' && path !== '/') {
+    return '/login';
   }
-  // Get content of path
-  loadPage(path) {
-    const [basePath] = path.split('?');
-    const route = this.routes.find((route) => route.path === basePath);
-    return route ? route : null;
+  return null;
+};
+
+class Router {
+  static loadPage(path) {
+    const redirectPath = checkAuthMiddleware(path);
+    if (redirectPath) {
+      return { redirect: redirectPath };
+    }
+
+    const route = routes.find((route) => route.path === path);
+    return route ? { route } : { route: null };
   }
 
-  renderPage(content, controller) {
-    const rootElement = document.querySelector('#root');
-    rootElement.innerHTML = content;
-    // Call the controller function if provided
+  static renderPage(content, controller) {
+    document.querySelector('#root').innerHTML = content;
     if (controller) {
       controller();
       headerController();
     }
   }
 
-  async navigateTo(path) {
-    history.pushState(null, null, path);
-    const route = this.loadPage(path);
-    if (route) {
+  static async navigateTo(path) {
+    const { redirect, route } = this.loadPage(path);
+    if (redirect) {
+      history.pushState(null, null, redirect);
+      this.renderPage(errorPage(), errorController);
+      setTimeout(() => {
+        alert('You must log in');
+      }, 200);
+    } else if (route) {
+      history.pushState(null, null, path);
       this.renderPage(route.view, route.controller);
     } else {
       this.navigateTo('/error-404');
     }
   }
 
-  init() {
-    document.body.addEventListener('click', (e) => {
-      if (e.target.matches('[data-link]')) {
-        e.preventDefault();
-        this.navigateTo(e.target.href);
-      }
-    });
-
-    //if user back previous page
+  static init() {
     window.addEventListener('popstate', () => {
       this.navigateTo(location.pathname);
     });
 
-    // Load the initial page
     this.navigateTo(location.pathname);
   }
 }

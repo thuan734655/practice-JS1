@@ -1,5 +1,6 @@
 import navChild from '../components/navChild';
 import loadImage from '../components/image';
+import img_link from '../components/img-link';
 
 const listTerms = [
   { text: 'Privacy Policy', href: '/privacy-policy' },
@@ -46,7 +47,7 @@ const footer = () => {
             ${navChild(listAboutUs)}
           </ul>
            <div class="AboutUs-icon">
-             ${loadImage(
+             ${img_link(
                [
                  {
                    srcImg:

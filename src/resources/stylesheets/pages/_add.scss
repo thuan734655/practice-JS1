@@ -90,7 +90,7 @@
     }
   }
   &--list-movies {
-    @include flex($gap: pxToRem(40), $justify: space-between);
+    @include flex($gap: pxToRem(40), $justify: space-evenly);
     flex-wrap: wrap;
     padding: pxToRem(24) 0 pxToRem(44) 0;
     .list-movies-container {

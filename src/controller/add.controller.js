@@ -148,12 +148,10 @@ const handleMovieClick = () => {
     const btnDelete = actionButtons.querySelector('.btn-delete');
 
     btnView.onclick = () => {
-      const router = new Router();
-      router.navigateTo(`/tvshow/details`);
+      Router.navigateTo(`/tvshow/details`);
     };
     btnEdit.onclick = () => {
-      const router = new Router();
-      router.navigateTo(`/update`);
+      Router.navigateTo(`/update`);
     };
     btnDelete.onclick = () => handleDeleteVideo(videoId);
   };

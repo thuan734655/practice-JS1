@@ -41,12 +41,11 @@ const renderMovies = (movies) => {
 };
 
 const changeToPageDetail = () => {
-  const router = new Router();
   const videosElement = document.querySelectorAll('.list-movies-container');
   videosElement.forEach((video) => {
     video.addEventListener('click', () => {
       localStorage.setItem('lastSelectedVideoId', video.id);
-      router.navigateTo(`/tvshow/details`);
+      Router.navigateTo(`/tvshow/details`);
     });
   });
 };

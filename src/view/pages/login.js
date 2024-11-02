@@ -31,9 +31,10 @@ const loginPage = () => {
           <div class="input-login">
             <img class="icon-key" src="${IcKeySquare}" alt="icon key">
             <input class="input-password" type="password" placeholder="Password" required>
-            <img class="icon-eye" src="${IcEye}" alt="icon eye">
+            <img select="false" class="icon-eye" src="${IcEye}" alt="icon eye">
           </div>
-          <button class="btn-login" type="submit">Login</button>
+          <button class="btn-login" type="button">Login</button>
+          <div id="errorMessages" style="color: red;"></div>
         </div>   
         <div class="right-box--footer">
           <p class="register">If you don't have an account yet, please <span>register</span>.</p>

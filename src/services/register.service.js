@@ -2,7 +2,6 @@ import Router from '../router/Router';
 import axiosClient from './axiosClient.js';
 
 const handleRegister = async (email, password, fullname) => {
-  const router = new Router();
   const reqBody = { email: email, password: password, fullname: fullname };
   try {
     const res = await axiosClient.post('/register', reqBody, {
@@ -11,7 +10,7 @@ const handleRegister = async (email, password, fullname) => {
     const { success, message } = res;
     console.log(res);
     if (success) {
-        router.navigateTo('/login');
+      Router.navigateTo('/login');
     } else {
       console.log(message);
     }

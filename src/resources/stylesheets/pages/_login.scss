@@ -84,6 +84,7 @@ body {
         .icon-eye {
           right: pxToRem(16);
           left: unset;
+          cursor: pointer;
         }
       }
       &--footer {

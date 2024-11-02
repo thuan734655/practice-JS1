@@ -1,45 +1,31 @@
 import Router from '../router/Router';
-import getCookie from '../helper/getCookie';
 
-const handle = (event, link, router) => {
+const handle = (event, link) => {
   event.preventDefault();
   const href = link.getAttribute('href');
-  if (href && middleware(href)) {
-    if (href == '/login' || href == '/add') {
-      router.navigateTo(href);
-    } else {
-      router.navigateTo('/home');
-    }
+  if (href) {
+    Router.navigateTo(href);
+  } else {
+    Router.navigateTo('/login');
   }
 };
-
-const middleware = (href) => {
-  const idUser = getCookie('idUser');
-  if (idUser > 0 || href == '/login') return true;
-  else {
-    alert('must login');
-    return false;
-  }
-};
-
 const headerController = () => {
-  const router = new Router();
   //header of home...
   document.querySelectorAll('.header--nav a').forEach((link) => {
     link.addEventListener('click', (event) => {
-      handle(event, link, router);
+      handle(event, link);
     });
   });
   //header of login...
-  document.querySelectorAll('.header-login a').forEach((link) => {
+  document.querySelectorAll('.header-login--nav a').forEach((link) => {
     link.addEventListener('click', (event) => {
-      handle(event, link, router);
+      handle(event, link);
     });
   });
   //logo
   document.querySelector('.logo').addEventListener('click', () => {
     if (middleware('logo')) {
-      router.navigateTo('/home');
+      Router.navigateTo('/home');
     }
   });
 };
