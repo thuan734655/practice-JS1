@@ -16,7 +16,7 @@ const listNavIcon = [
 const headerLogin = () => {
   return `
   <div class="header-login">
-      <div class="header-login--logo">
+      <div class="header-login--logo logo">
           <figure>
               <img src="${IcLogo}" alt="logo">
           </figure>

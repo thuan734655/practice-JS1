@@ -5,7 +5,9 @@
   @include flex($align: center, $justify: space-between);
   margin: 0 auto;
   padding-top: pxToRem(16);
-
+  .logo img {
+    cursor: pointer;
+  }
   &--nav {
     @include set-size($w: pxToRem(521));
     @include flex($gap: pxToRem(32), $align: center, $justify: right);
@@ -14,8 +16,7 @@
 
       li:hover {
         transform: scale(1.05);
-        a
-       {
+        a {
           color: rgb(255, 119, 0);
           stroke: rgb(255, 119, 0);
         }

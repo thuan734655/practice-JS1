@@ -9,7 +9,9 @@ import addPage from '../view/pages/add.js';
 import addController from '../controller/add.controller.js';
 import updatePage from '../view/pages/update.js';
 import updateController from '../controller/update.controller.js';
-
+import errorPage from '../view/pages/errorPage.js';
+import errorController from '../controller/error.controller.js';
+  
 class Router {
   constructor() {
     this.routes = [
@@ -23,6 +25,7 @@ class Router {
       },
       { path: '/add', view: addPage(), controller: addController },
       { path: '/update', view: updatePage(), controller: updateController },
+      { path: '/error-404', view: errorPage(), controller: errorController },
     ];
   }
   // Get content of path
@@ -48,7 +51,7 @@ class Router {
     if (route) {
       this.renderPage(route.view, route.controller);
     } else {
-      console.log('Page not found');
+      this.navigateTo('/error-404');
     }
   }
 

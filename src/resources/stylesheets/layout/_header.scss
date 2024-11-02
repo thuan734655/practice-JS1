@@ -4,7 +4,7 @@ header {
   @include flex($align: center, $justify: space-between);
   margin: 0 auto;
   padding-top: pxToRem(16);
-  .header--logo img {
+  .logo img {
     cursor: pointer;
   }
   .header--nav {
