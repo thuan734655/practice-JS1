@@ -45,12 +45,10 @@ const render = (dataLoad) => {
   document.querySelector('.welcome--body').innerHTML = html;
 };
 
-/** Attach event listeners to Quick Links buttons */
 const handleLink = () => {
   const link = document.querySelectorAll('.Quick-links--body button');
   link.forEach((element) => {
-    element.addEventListener('click', () => {
-      // Navigate to route based on button id
+    element.addEventListener('click', () => {  
       Router.navigateTo(`/${element.id}`);
     });
   });

@@ -4,15 +4,12 @@ import handleLogin from '../services/login.service.js';
 import registerPage from '../view/components/register.js';
 import registerController from './register.controller.js';
 
-/** Main function for login page events */
 const login = () => {
-  // Select elements only once for reuse
   const btnLogin = document.querySelector('.btn-login');
   const registerLink = document.querySelector('.register');
   const inputPassword = document.querySelector('.input-password');
   const iconEye = document.querySelector('.icon-eye');
 
-  /** Toggle visibility of password field */
   const togglePasswordVisibility = () => {
     const isHidden = iconEye.getAttribute('select') === 'false';
     inputPassword.type = isHidden ? 'text' : 'password';

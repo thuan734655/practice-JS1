@@ -21,8 +21,6 @@ const fetchVideosByCategory = async (category) => {
   };
 
   const videoList = await (videoSources[category] || videoSources['all'])();
-
-  // Determine the button label based on category
   const buttonLabel =
     category === 'tv-shows'
       ? 'TV Shows'
@@ -123,7 +121,6 @@ const updatePaginationControls = (totalPages) => {
 
   paginationContainer.innerHTML = ''; // Clear existing controls
 
-  // Helper to create pagination buttons
   const createButton = (text, onClick, disabled = false) => {
     const button = document.createElement('button');
     button.innerText = text;
@@ -193,9 +190,7 @@ const setupSubNavListeners = () => {
   });
 };
 
-/**
- * Main controller to initialize the page
- */
+
 const homeController = async () => {
   const {
     videoList: fetchedVideos,

@@ -9,9 +9,9 @@ const handle = (event, link) => {
   event.preventDefault();
   const href = link.getAttribute('href');
   if (href) {
-    Router.navigateTo(href); // Navigate to href if present
+    Router.navigateTo(href);
   } else {
-    Router.navigateTo('/login'); // Default to login page if href is missing
+    Router.navigateTo('/login'); 
   }
 };
 
@@ -19,20 +19,20 @@ const handle = (event, link) => {
  * Sets up event listeners for header navigation links and logo click.
  */
 const headerController = () => {
-  // Attach click handler to home header navigation links
+  //Header home
   document.querySelectorAll('.header--nav a').forEach((link) => {
     link.addEventListener('click', (event) => {
       handle(event, link);
     });
   });
-
-  // Attach click handler to login header navigation links
+// Header login
   document.querySelectorAll('.header-login--nav a').forEach((link) => {
     link.addEventListener('click', (event) => {
       handle(event, link);
     });
   });
 
+  //Logo
   document.querySelector('.logo').addEventListener('click', () => {
       Router.navigateTo('/home'); 
   });

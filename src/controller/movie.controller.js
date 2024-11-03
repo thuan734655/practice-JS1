@@ -1,16 +1,29 @@
 import Router from '../router/Router.js';
 import { getMovies } from '../services/movie.service.js';
+import { getTvShows } from '../services/tvShows.service.js';
 import listMovies from '../view/components/list-movies.js';
 
 const videosPerPage = 8; // Number of videos to display per page
 let currentPage = 1; // Current page for pagination
 let allVideos = []; // Store all videos for filtering and pagination
 
-/** Fetch all movies from the service */
 const fetchVideosByCategory = async () => {
-  const videoList = await getMovies();
-  console.log(videoList); // Log fetched videos for debugging
-  return videoList;
+  const path = window.location.pathname;
+
+  let category;
+  if (path.includes('/movies')) {
+    category = 'Movie';
+  } else if (path.includes('/tvshows')) {
+    category = 'TVShow';
+  } else {
+    throw new Error('Invalid category in URL');
+  }
+
+  if (category === 'Movie') {
+    return await getMovies();
+  } else {
+    return await getTvShows();
+  }
 };
 
 /** Render movies into the container */
@@ -140,7 +153,6 @@ const handleLink = () => {
 const videoController = async () => {
   const fetchedVideos = await fetchVideosByCategory();
   allVideos = fetchedVideos; // Store videos globally for filtering and pagination
-  console.log(allVideos); // Log all videos for debugging
   renderPaginatedMovies(allVideos);
   updateVideoCount(fetchedVideos.length);
 
