@@ -11,9 +11,9 @@ const TvShowsDetailsPage = () => {
          <div class="top-detail">
           <div class="top-detail-container">
            <div class="top-detail-container--nav">
-            <a class="nav-MaileHereko" href="/home">MaileHereko</a>
+            <p class="nav-MaileHereko link" href="/home">MaileHereko</p>
             <p>/</p>
-            <a class="nav-TVShows" href="/tvshows">TV Shows</a>
+            <p class="nav-TVShows link" href="/tvshows">TV Shows</p>
            </div> 
            <div class="top-detail-container--name-movie">Lost In Space</div>
           </div>

@@ -39,7 +39,6 @@ body {
         &-container {
           &--nav {
             @include flex($gap: pxToRem(8));
-            a,
             p {
               @include font(
                 $font-size: pxToRem(12),
@@ -47,6 +46,7 @@ body {
                 $line-height: 133%,
                 $color: $twelfth-color
               );
+              cursor: pointer;
               text-decoration: none;
             }
           }

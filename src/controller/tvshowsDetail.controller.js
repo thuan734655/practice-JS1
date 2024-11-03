@@ -79,11 +79,11 @@ const getIdVideo = () => {
 };
 
 const handleLink = () => {
-  const links = document.querySelectorAll('top-detail-container--nav a');
+  const links = document.querySelectorAll('.top-detail-container--nav .link');
+  console.log(links);
   links.forEach((element) => {
-    element.addEventListener('click', (e) => {
-      e.preventDefault();
-      Router.navigateTo(e.target.href);
+    element.addEventListener('click', () => {
+      Router.navigateTo(element.getAttribute('href'));
     });
   });
 };
