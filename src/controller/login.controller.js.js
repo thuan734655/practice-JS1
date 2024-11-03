@@ -20,15 +20,20 @@ const login = () => {
   };
 
   /** Handle login button click */
-  btnLogin.addEventListener('click', () => {
+  btnLogin.addEventListener('click', async () => {
     const email = document.querySelector('.input-email').value;
     const password = inputPassword.value;
 
     const validate = validateLoginForm(email, password);
     if (validate.length > 0) {
-      validate.forEach((error) => alert(error)); // Show each validation error
+      validate.forEach((error) => alert(error));
     } else {
-      handleLogin(email, password); // Proceed with login if validation passes
+      const result = await handleLogin(email, password);
+      const idUser = result.data.data.idUser;
+      localStorage.setItem('idUser', idUser);
+      if (result.success) {
+        Router.navigateTo('/home');
+      }
     }
   });
 
@@ -38,7 +43,6 @@ const login = () => {
     registerController();
   });
 
-  /** Toggle password visibility on eye icon click */
   iconEye.addEventListener('click', togglePasswordVisibility);
 };
 

@@ -1,4 +1,5 @@
 const form_add = () => {
+  const idUser = localStorage.getItem('idUser');
   return `
          <div class="container">
             <button type="button" class="btn-cancel">X</button>
@@ -55,6 +56,9 @@ const form_add = () => {
                 <div class="form-group">
                     <label for="noOfSeasons">No of Seasons:</label>
                     <input type="number" id="noOfSeasons" name="noOfSeasons" required  placeholder="Enter number of seasons">
+                </div>
+                <div  class="idUser-temp">
+                    <input type="text" id="idUser" name="idUser" value= "${idUser}">
                 </div>
                 <button type="submit" class="btn-add-video">Add Video</button>
             </form>

@@ -13,7 +13,6 @@ import errorPage from '../view/pages/errorPage.js';
 import errorController from '../controller/error.controller.js';
 import dashboardPage from '../view/pages/dashboard.js';
 import dashboardController from '../controller/dashboard.controller.js';
-import getCookie from '../helper/getCookie.js';
 import movieController from '../controller/movie.controller.js';
 import videoPage from '../view/pages/video.js';
 
@@ -43,8 +42,7 @@ const routes = [
 ];
 
 const checkAuthMiddleware = (path) => {
-  const idUser = getCookie('idUser');
-  console.log(idUser);
+  const idUser = localStorage.getItem('idUser');
   if (!idUser && path !== '/login' && path !== '/') {
     return '/login';
   }
@@ -53,10 +51,10 @@ const checkAuthMiddleware = (path) => {
 
 class Router {
   static loadPage(path) {
-    // const redirectPath = checkAuthMiddleware(path);
-    // if (redirectPath) {
-    //   return { redirect: redirectPath };
-    // }
+    const redirectPath = checkAuthMiddleware(path);
+    if (redirectPath) {
+      return { redirect: redirectPath };
+    }
 
     const route = routes.find((route) => route.path === path);
     return route ? { route } : { route: null };

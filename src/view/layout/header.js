@@ -5,6 +5,7 @@ import icArrowRight from '../../resources/assets/icons/ic-arrow-right.js';
 const listNav = [
   { text: 'Movies', href: '/movies' },
   { text: 'TV Shows', href: '/tvshows' },
+  { text: 'Add', href: '/add' },
 ];
 
 const listNavIcon = [
