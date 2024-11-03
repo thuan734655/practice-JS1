@@ -1,3 +1,4 @@
+import Router from '../router/Router';
 import { getInfoVideobyId } from '../services/videos.service';
 import loadBox from '../view/components/box';
 
@@ -77,10 +78,21 @@ const getIdVideo = () => {
   return idVideo;
 };
 
+const handleLink = () => {
+  const links = document.querySelectorAll('top-detail-container--nav a');
+  links.forEach((element) => {
+    element.addEventListener('click', (e) => {
+      e.preventDefault();
+      Router.navigateTo(e.target.href);
+    });
+  });
+};
+
 const TvShowsDetailsController = async () => {
   const idVideo = getIdVideo();
   const videos = await loader(idVideo);
   render(videos);
+  handleLink();
 };
 
 export default TvShowsDetailsController;
