@@ -16,7 +16,6 @@ const addPage = () => {
         <button>search</button>
       </div> <!-- end search-->  
       <div class="section-main__box-search-and-mylist--mylist" >
-       <p id ="my-list" >My list</p>
        <p id="add-new-item" >Add new item</p>
       </div>
       </div>
