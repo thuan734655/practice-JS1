@@ -1,21 +1,35 @@
+import validateLoginForm from '../helper/fromValidates.js';
+import Router from '../router/Router';
 import handleRegister from '../services/register.service';
 
-/** Controller to manage the registration functionality */
 const registerController = () => {
-  // Close registration section on button click
   document.querySelector('.close-button').addEventListener('click', () => {
     document.querySelector('.section-main-register').innerHTML = ''; // Clear registration content
   });
 
   // Handle registration submission
   document.querySelector('.submit-register').addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent default form submission
-    const email = document.querySelector('#email').value; // Get email input
-    const password = document.querySelector('#password').value; // Get password input
-    const fullname = document.querySelector('#full-name').value; // Get full name input
-    console.log(fullname); // Log full name for debugging purposes
-    handleRegister(email, password, fullname); // Call registration service with inputs
+    e.preventDefault();
+
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
+    const fullname = document.querySelector('#full-name').value;
+
+    const validate = validateLoginForm(email, password, fullname);
+    if (validate.length > 0) {
+      validate.forEach((error) => alert(error));
+    } else {
+      const res = handleRegister(email, password, fullname);
+      const { success, message } = res;
+      console.log(res);
+      if (success) {
+        alert('Register success');
+        Router.navigateTo('/login');
+      } else {
+        console.log(message);
+      }
+    }
   });
 };
 
-export default registerController; // Export the controller for use in other modules
+export default registerController;
