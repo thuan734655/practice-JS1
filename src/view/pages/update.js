@@ -1,9 +1,9 @@
 import footer from '../layout/footer';
-import headerLogin from '../layout/header-login';
+import header from '../layout/header';
 
 const updatePage = () => {
   return `
-   ${headerLogin()}
+   ${header()}
    <section class="section-main-update">
      <div class="section-main-update__container">
       <div class="section-main-update__container--form-update">
