@@ -6,6 +6,7 @@ let allVideos = [];
 export const handleDeleteVideo = async (videoId) => {
   const numVideoId = Number(videoId);
   const videoToDelete = allVideos.find((video) => {
+    console.log(video.idVideo, numVideoId);
     return video.idVideo === numVideoId;
   });
   if (!videoToDelete) {

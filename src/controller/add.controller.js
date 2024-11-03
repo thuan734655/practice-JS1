@@ -42,6 +42,9 @@ const renderMovies = (movies) => {
 /** Render paginated videos */
 const renderPaginatedVideos = (videos) => {
   if (!videos || videos.length === 0) {
+    const movieContainer = document.querySelector('.section-main--list-movies');
+    movieContainer.innerHTML = '';
+
     alert("Don't exist video");
     return;
   }
