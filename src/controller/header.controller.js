@@ -33,11 +33,8 @@ const headerController = () => {
     });
   });
 
-  // Logo click event to navigate to home with middleware check
   document.querySelector('.logo').addEventListener('click', () => {
-    if (middleware('logo')) {
-      Router.navigateTo('/home'); // Navigate to home if middleware passes
-    }
+      Router.navigateTo('/home'); 
   });
 };
 

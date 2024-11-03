@@ -17,7 +17,7 @@ const listNavIcon = [
 const header = () => {
   return `
   <header id = "rootApp">
-      <div class="header--logo logo">
+      <div class="header--logo">
           <figure>
               <img class="logo" src="${IcLogo}" alt="logo">
           </figure>
